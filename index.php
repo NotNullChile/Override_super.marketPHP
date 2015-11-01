@@ -46,7 +46,7 @@ if(isset($_SESSION['cliente']))
             <div class="w3-col m1">&nbsp;</div>
             <!--End of blank column(1)-->
             <!--Search form-->
-            <form action="../Override/categorias/resultados_busqueda.php" method="post">
+            <form action="../Override_super.marketPHP/categorias/resultados_busqueda.php" method="post">
             <div class="w3-col m3">
                 <br><br><br>
                 <div class="input-group">
@@ -213,17 +213,17 @@ if(isset($_SESSION['cliente']))
                             <div class="carousel-inner" 
                                  role="listbox">
                                 <div class="item active">
-                                    <a href="busqueda_desayuno_y_once.jsp">
+                                    <a href="../Override_super.marketPHP/categorias/busqueda_desayuno_y_once.php">
                                         <img src="images/cafe.png" alt="Nescafe Tradición Granulado $ 999" width="230" height="172">
                                     </a>
                                 </div>
                                 <div class="item">
-                                    <a href="busqueda_mascotas.jsp">
+                                    <a href="../Override_super.marketPHP/categorias/busqueda_mascotas.php">
                                         <img src="images/mascotas.png" alt="Chania" width="460" height="345">
                                     </a>
                                 </div>
                                 <div class="item">
-                                    <a href="busqueda_bebidas_y_licores.jsp">
+                                    <a href="../Override_super.marketPHP/categorias/busqueda_bebidas_y_licores.php">
                                         <img src="images/tragos.png" alt="Flower" width="460" height="345">
                                     </a>
                                 </div>
@@ -267,7 +267,7 @@ if(isset($_SESSION['cliente']))
                 </div>
                 <!--End of title bar-->
                 <!--First Row of items-->
-                <form action="detalle_producto.jsp" method="POST">
+                <form action="../Override_super.marketPHP/categorias/detalle_producto.php" method="POST">
                   <div class="w3-row-margin">          
                       <?php 
                         $propiedadDal = new ProductoDal();

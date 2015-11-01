@@ -48,7 +48,7 @@ if(isset($_SESSION['cliente']))
             <div class="w3-col m1">&nbsp;</div>
             <!--End of blank column(1)-->
             <!--Search form-->
-            <form action="resultados_busqueda.jsp" method="post">
+            <form action="resultados_busqueda.php" method="post">
             <div class="w3-col m3">
                 <br><br><br>
                 <div class="input-group">
@@ -295,7 +295,7 @@ if(isset($_SESSION['cliente']))
                 </div>
                 <!--End of price filter-->
                 
-                <form action=detalle_producto.jsp method="POST">
+                <form action=detalle_producto.php method="POST">
                     <div class="w3-row-margin">
                         <?php
                          $p = new ProductoDal();                        

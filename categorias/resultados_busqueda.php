@@ -4,8 +4,6 @@ header('Content-Type: text/html; charset=UTF-8');
 session_start();
 require_once ('../conexion.php');
 require_once ('../model.dal/ProductoDal.php');
-$tipoProducto = "Mascotas";
-$thisURL = "busqueda_"+$tipoProducto+".php";
 if(isset($_SESSION['cliente']))
 {
     $sessionCliente = $_SESSION['cliente'];
@@ -16,7 +14,7 @@ if(isset($_SESSION['cliente']))
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Busqueda</title>
+        <title>Busquedas Generales</title>
         <link rel="stylesheet" href="../w3.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="style.css">
@@ -38,7 +36,7 @@ if(isset($_SESSION['cliente']))
             <!--End of blank column-->
             <!--Logo(2)-->
             <div class="w3-col m2">
-                <a href="index.jsp">
+                <a href="../index.php">
                     <img src="../images/Override_logo.png" 
                          width="70%" 
                          alt="Override('<i class='fa fa-shopping-cart'></i>')"/>
@@ -110,7 +108,7 @@ if(isset($_SESSION['cliente']))
                                     echo("<a class='btn btn-block btn-warning' href='close_session.do'>");
                                     echo("<i class='fa fa-lock'></i>&nbsp;Cerrar Sesión");
                                     echo("</a>");
-                                    
+                                                               
                                 }
                                 else
                                 {
@@ -297,61 +295,37 @@ if(isset($_SESSION['cliente']))
                 
                 <form action="detalle_producto.php" method="POST">
                     <div class="w3-row-margin">
-                        <%
-                         model.dal.ProductoDal productoDal = new ProductoDal();
-                         //Formato Dinero CL
-                         DecimalFormat formato = new DecimalFormat("$#,###");
-                         ArrayList<model.business.Producto> listProduct = productoDal.listaProductoBusquedaGeneral();
-                         
-                         if(request.getParameter("btn_filtrar_valores") != null)
+                        <?php 
+                         $p = new ProductoDal();  
+                         $busqueda = "";
+                         if(isset($_POST["txt_busqueda"]))
                          {
-                             int valor1 = Integer.parseInt(request.getParameter("valor_min"));
-                             int valor2 = Integer.parseInt(request.getParameter("valor_max"));
-                             listProduct = productoDal.listaProductoXValores(valor1, valor2);
+                             $busqueda = $_POST["txt_busqueda"];
+                             $p->listaProductoGeneral($busqueda);
                          }
-                         else if (request.getParameter("btn_ordenar_precio_asc") != null)
+                         else if (isset($_POST["btn_filtrar_valores"])) 
                          {
-                             listProduct = productoDal.listaProductoMenorAMayor();
+                             $valor1 = $_POST["valor_min"];
+                             $valor2 = $_POST["valor_max"];
+                             $p->listaProductoXValoresBusquedaGeneral($valor1, $valor2);
                          }
-                         else if(request.getParameter("btn_ordenar_precio_desc") != null)
+                         else if (isset($_POST["btn_ordenar_precio_asc"]))
                          {
-                             listProduct = productoDal.listaProductoMayorAMenor();
+                             $p->listaProductoMenorAMayorBusquedaGeneral();        
                          }
-                         else if(request.getParameter("btn_ordenar_alpha_asc") != null)
+                         else if (isset($_POST["btn_ordenar_precio_desc"]))
                          {
-                             listProduct = productoDal.listaProductoXOrdenAlfabeticoASC();
+                             $p->listaProductoMayorAMenorBusquedaGeneral();        
                          }
-                         else if(request.getParameter("btn_ordenar_alpha_desc") != null)
+                         else if (isset ($_POST["btn_ordenar_alpha_asc"])) 
                          {
-                             listProduct = productoDal.listaProductoXOrdenAlfabeticoDESC();
-                             
-                         }else if(request.getParameter("btn_busqueda_general") != null)
-                         {
-                             listProduct = productoDal.listaProductoBusquedaGeneral(request.getParameter("txt_busqueda"));
+                             $p->listaProductoOrdenAlfabeticoASCBusquedaGeneral();   
                          }
-                         if (listProduct.isEmpty()) {
-                                 out.println("<br>No existen productos que contengan el nombre o descripción <strong>''" + request.getParameter("txt_busqueda")+"''</strong>");
-                             }
-                             
-                         
-                         for(model.business.Producto p : listProduct)
-                         {                                    
-                        %>
-                        <div class="w3-third">
-                            <div class="w3-card-2">
-                                <button value="<%=p.getUrlFoto()%>" name="imagen"> 
-                                <img name="imagen" value="<%=p.getUrlFoto()%>" src="imagesProducts/<%=p.getUrlFoto()%>" style="width:100%">
-                                </button>
-                                <div class="w3-container">   
-                                    <h5><%=p.getNombreProducto()%></h5>
-                                    <hr>
-                                    <h5 align="right"><%=formato.format(p.getPrecioUnitario())%></h5>
-                                </div>                                
-                            </div>
-                        </div>
-                          <%
-                            }
-                          %> 
+                         else if (isset ($_POST["btn_ordenar_alpha_desc"])) 
+                         {
+                             $p->listaProductoXOrdenAlfabeticoDESCBusquedaGeneral();   
+                         }
+                         ?>
                    </div> 
                  </form> 
             </div>
@@ -383,7 +357,7 @@ if(isset($_SESSION['cliente']))
                     <div class="w3-col m1"> &nbsp; </div>
                     <div class="w3-col m1">
                         <br>
-                        <img src="images/notnull.png" width="60%" alt="notnull"/>
+                        <img src="../images/notnull.png" width="60%" alt="notnull"/>
                     </div>
                     <div class="w3-col m1"> &nbsp; </div>
                 </div>
