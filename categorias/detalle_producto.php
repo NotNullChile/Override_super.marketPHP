@@ -22,7 +22,7 @@ if(isset($_SESSION['cliente']))
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="icon" type="image/ico" href="images/override.ico">
+        <link rel="icon" type="image/ico" href="../images/override.ico">
     </head>
     <body>     
         <!--header-->
@@ -32,7 +32,7 @@ if(isset($_SESSION['cliente']))
             <!--End of blank column-->
             <!--Logo(2)-->
             <div class="w3-col m2">
-                <a href="index.php">
+                <a href="../index.php">
                     <img src="../images/Override_logo.png" 
                          width="70%" 
                          alt="Override('<i class='fa fa-shopping-cart'></i>')"/>
@@ -114,11 +114,11 @@ if(isset($_SESSION['cliente']))
                                     echo("<i class='fa fa-shopping-cart'></i>&nbsp;Carro de Compras");
                                     echo("</a><br>");
                                     
-                                    echo("<a class='btn btn-block btn-success' href='login.jsp'>");
+                                    echo("<a class='btn btn-block btn-success' href='../access/login.php'>");
                                     echo("<i class='fa fa-user'></i>&nbsp;Iniciar Sesión");
                                     echo("</a><br>");
                                     
-                                    echo("<a class='btn btn-block btn-warning' href='login.jsp'>");
+                                    echo("<a class='btn btn-block btn-warning' href='../access/login.php'>");
                                     echo("<i class='fa fa-user-plus'></i>&nbsp;Nuevo Usuario");
                                     echo("</a>");
                                 }
@@ -236,8 +236,8 @@ if(isset($_SESSION['cliente']))
                                 <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.notnull.cl" property="cc:attributionName" rel="cc:attributionURL">
                                     notNull Chile</a> <br>Se distribuye bajo una <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"> Licencia Creative
                                         Commons Atribución-NoComercial-SinDerivar 4.0 Internacional</a>.<br />Basada en una obra en 
-                                <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/NotNullChile/Override_super.market" rel="dct:source">
-                                https://github.com/NotNullChile/Override_super.market</a>.
+                                <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/NotNullChile/Override_super.marketPHP" rel="dct:source">
+                                https://github.com/NotNullChile/Override_super.marketPHP</a>.
                         </h6>
                     </div>
                     <div class="w3-col m1"> &nbsp; </div>

@@ -46,7 +46,7 @@ if(isset($_SESSION['cliente']))
             <div class="w3-col m1">&nbsp;</div>
             <!--End of blank column(1)-->
             <!--Search form-->
-            <form action="../Override_super.marketPHP/categorias/resultados_busqueda.php" method="post">
+            <form action="categorias/resultados_busqueda.php" method="post">
             <div class="w3-col m3">
                 <br><br><br>
                 <div class="input-group">
@@ -96,7 +96,7 @@ if(isset($_SESSION['cliente']))
                                 if(isset($sessionCliente))
                                 {
                                     $sessionCliente['nombre'];
-                                    echo("<a class='btn btn-block btn-info' href='carro.jsp'>");
+                                    echo("<a class='btn btn-block btn-info' href='carro.php'>");
                                     echo("<i class='fa fa-shopping-cart'></i>&nbsp;Carro de Compras");
                                     echo("</a><br>");
                                     
@@ -113,15 +113,15 @@ if(isset($_SESSION['cliente']))
                                 {
                                     echo("<br>&nbsp;<br>");
                                     
-                                    echo("<a class='btn btn-block btn-info' href='redirect_iniciar_sesion.jsp'>");
+                                    echo("<a class='btn btn-block btn-info' href='redirect_iniciar_sesion.php'>");
                                     echo("<i class='fa fa-shopping-cart'></i>&nbsp;Carro de Compras");
                                     echo("</a><br>");
                                     
-                                    echo("<a class='btn btn-block btn-success' href='login.jsp'>");
+                                    echo("<a class='btn btn-block btn-success' href='access/login.php'>");
                                     echo("<i class='fa fa-user'></i>&nbsp;Iniciar Sesión");
                                     echo("</a><br>");
                                     
-                                    echo("<a class='btn btn-block btn-warning' href='login.jsp'>");
+                                    echo("<a class='btn btn-block btn-warning' href='access/login.php'>");
                                     echo("<i class='fa fa-user-plus'></i>&nbsp;Nuevo Usuario");
                                     echo("</a>");
                                 }
@@ -213,17 +213,17 @@ if(isset($_SESSION['cliente']))
                             <div class="carousel-inner" 
                                  role="listbox">
                                 <div class="item active">
-                                    <a href="../Override_super.marketPHP/categorias/busqueda_desayuno_y_once.php">
+                                    <a href="categorias/busqueda_desayuno_y_once.php">
                                         <img src="images/cafe.png" alt="Nescafe Tradición Granulado $ 999" width="230" height="172">
                                     </a>
                                 </div>
                                 <div class="item">
-                                    <a href="../Override_super.marketPHP/categorias/busqueda_mascotas.php">
+                                    <a href="categorias/busqueda_mascotas.php">
                                         <img src="images/mascotas.png" alt="Chania" width="460" height="345">
                                     </a>
                                 </div>
                                 <div class="item">
-                                    <a href="../Override_super.marketPHP/categorias/busqueda_bebidas_y_licores.php">
+                                    <a href="categorias/busqueda_bebidas_y_licores.php">
                                         <img src="images/tragos.png" alt="Flower" width="460" height="345">
                                     </a>
                                 </div>
@@ -267,7 +267,7 @@ if(isset($_SESSION['cliente']))
                 </div>
                 <!--End of title bar-->
                 <!--First Row of items-->
-                <form action="../Override_super.marketPHP/categorias/detalle_producto.php" method="POST">
+                <form action="categorias/detalle_producto.php" method="POST">
                   <div class="w3-row-margin">          
                       <?php 
                         $propiedadDal = new ProductoDal();

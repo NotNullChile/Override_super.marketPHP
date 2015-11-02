@@ -119,11 +119,11 @@ if(isset($_SESSION['cliente']))
                                     echo("<i class='fa fa-shopping-cart'></i>&nbsp;Carro de Compras");
                                     echo("</a><br>");
                                     
-                                    echo("<a class='btn btn-block btn-success' href='login.jsp'>");
+                                    echo("<a class='btn btn-block btn-success' href='../access/login.php'>");
                                     echo("<i class='fa fa-user'></i>&nbsp;Iniciar Sesión");
                                     echo("</a><br>");
                                     
-                                    echo("<a class='btn btn-block btn-warning' href='login.jsp'>");
+                                    echo("<a class='btn btn-block btn-warning' href='../access/login.php'>");
                                     echo("<i class='fa fa-user-plus'></i>&nbsp;Nuevo Usuario");
                                     echo("</a>");
                                 }
