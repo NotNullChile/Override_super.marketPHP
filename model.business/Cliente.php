@@ -18,6 +18,14 @@ class Cliente extends Persona
         $this->login = $login;
         
     }
+    function getUsername()
+    {
+        return $this->getUsername();
+    }
+    function getPassword()
+    {
+        return $this->getPassword();
+    }
 
 
 }
