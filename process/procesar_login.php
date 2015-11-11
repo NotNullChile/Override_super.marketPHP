@@ -1,46 +1,54 @@
 <?php
+session_start();
+require_once '../model.dal/ClientesDal.php';
+require_once '../model.dal/AdministradorDal.php';
+require_once '../model.business/Cliente.php';
+require_once '../model.business/Persona.php';
+require_once '../model.business/Administrador.php';
 //Intancia de clases
-//model.dal.ClientesDal clientesDal = new model.dal.ClientesDal();
-//model.dal.AdministradorDal adminDal = new model.dal.AdministradorDal();
-//model.business.Administrador admin = new model.business.Administrador();
-//model.business.Clientes cliente = new model.business.Clientes();
+$clientesDal = new ClientesDal();
+$adminDal = new AdministradorDal();
+$admin = new Administrador();
+$cliente = new Cliente();
 ////Get
-//String user = request.getParameter("txt_rut");
-//String password = request.getParameter("txt_password");
+$username = $_POST["txt_rut"];
+$password = $_POST["txt_password"];
 ////SET Admin
-//admin.getLogin().setUsername(Integer.parseInt(user));
-//admin.getLogin().setPassword(password);  
+$admin->setUsername($username);
+$admin->setPassword($password);
 ////SET Cliente
-//cliente.getLogin().setUsername(Integer.parseInt(user));
-//cliente.getLogin().setPassword(password);
-//
+$cliente->setUsername($username);
+$cliente->setPassword($password);
 ////Consulta si existe el cliente
-//if (clientesDal.searchCliente(cliente) != null) 
+//if ($clientesDal->searchClient($cliente)!= NULL) 
 //{
-//    cliente = clientesDal.searchCliente(cliente);
-//    if(cliente.getNombre() != null)
+//    $cliente = $clientesDal->searchClient($cliente);
+//
+//    if($cliente->getNombre() != null)
 //    {
-//     out.print("Si existe este cliente");
 //    //Pagina 
-//        request.getSession().setAttribute("cliente", cliente);
-//        request.getSession().setAttribute("carrito", new ArrayList());
-//        request.getRequestDispatcher("redirect_index_sesion_iniciada.jsp").forward(request, response); 
+//        $nombre = $cliente->getNombre() . ' </br> ' . $cliente->getApellido();
+//        $arrayCliente = array('nombre' => $nombre);
+//        $_SESSION['cliente'] = $arrayCliente;
+//        $_SESSION['carrito'] = array();
+//        header("Location: ../redirect_index_sesion_iniciada.php");
 //    }
 //}
-//if(adminDal.searchAdmin(admin)!= null)
-//{
-//    admin = adminDal.searchAdmin(admin);
-//    if (admin.getNombre() != null) 
-//    {
-//        out.print("Si existe este Admin");
-//    //Pagina 
-//        HttpSession sesionAdmin = request.getSession();
-//        sesionAdmin.setAttribute("admin", admin);
-//        request.getRequestDispatcher("redirect_index_intranet_sesion_iniciada.jsp").forward(request, response);
-//    }
-//}
-//else
-//{               
-//    //Error login 
-//    request.getRequestDispatcher("error_login.jsp").forward(request, response);
-//}   
+  if($adminDal->searchAdmin($admin) != NULL)
+{
+    $admin = $adminDal->searchAdmin($admin);
+    if ($admi->getNombre() != null) 
+    {
+    //Pagina 
+        $nombre = $admin->getNombre() . ' </br> ' . $admin->getApellido();
+        $arrayAdmin = array('nombre' => $nombre);
+        $_SESSION['administrador'] = $arrayAdmin;
+        echo "admin encontrado";
+        //request.getRequestDispatcher("redirect_index_intranet_sesion_iniciada.jsp").forward(request, response);
+    }
+}
+else
+{               
+    //Error login 
+    //request.getRequestDispatcher("error_login.jsp").forward(request, response);
+}   

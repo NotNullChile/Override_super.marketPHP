@@ -93,7 +93,7 @@ if(isset($_SESSION['cliente']))
                 <?php
                     if(isset($sessionCliente))
                     {
-                        echo("Bienvenido <br>"+ $sessionCliente['nombre']);
+                        echo("Bienvenid@ <br>" . $sessionCliente['nombre']);
                     }
                     else
                     {
@@ -120,7 +120,7 @@ if(isset($_SESSION['cliente']))
                                     echo("<i class='fa fa-user'></i>&nbsp;Mi Perfil");
                                     echo("</a><br>");
 
-                                    echo("<a class='btn btn-block btn-warning' href='close_session.php'>");
+                                    echo("<a class='btn btn-block btn-warning' href='../process/close_session.php'>");
                                     echo("<i class='fa fa-lock'></i>&nbsp;Cerrar Sesión");
                                     echo("</a>");
                                     

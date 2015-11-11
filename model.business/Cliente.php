@@ -1,30 +1,39 @@
 <?php
-
-use Login;
-
+require_once '../model.business/Persona.php';
+require_once '../model.business/Login.php';
 class Cliente extends Persona
 {
-    private $login;
-    
+    private $username;
+    private $password;
+    private $rol;
     function __construct() 
     {
-        $login = new Login();
-    }
-    function getLogin() {
-        return $this->login;
-    }
-
-    function setLogin($login) {
-        $this->login = $login;
+        //$login = new Login();
         
     }
-    function getUsername()
-    {
-        return $this->getUsername();
+    
+    function getUsername() {
+        return $this->username;
     }
-    function getPassword()
-    {
-        return $this->getPassword();
+
+    function getPassword() {
+        return $this->password;
+    }
+
+    function getRol() {
+        return $this->rol;
+    }
+
+    function setUsername($username) {
+        $this->username = $username;
+    }
+
+    function setPassword($password) {
+        $this->password = $password;
+    }
+
+    function setRol($rol) {
+        $this->rol = $rol;
     }
 
 
