@@ -79,7 +79,7 @@ if(isset($_SESSION['cliente']))
                 <?php
                     if(isset($sessionCliente))
                     {
-                        echo("Bienvenido <br>" . $sessionCliente['nombre']);
+                        echo("Bienvenid@ <br>" . $sessionCliente['nombre']);
                     }
                     else
                     {

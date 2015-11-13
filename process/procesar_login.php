@@ -20,24 +20,20 @@ $admin->setPassword($password);
 $cliente->setUsername($username);
 $cliente->setPassword($password);
 ////Consulta si existe el cliente
-//if ($clientesDal->searchClient($cliente)!= NULL) 
-//{
-//    $cliente = $clientesDal->searchClient($cliente);
-//
-//    if($cliente->getNombre() != null)
-//    {
-//    //Pagina 
-//        $nombre = $cliente->getNombre() . ' </br> ' . $cliente->getApellido();
-//        $arrayCliente = array('nombre' => $nombre);
-//        $_SESSION['cliente'] = $arrayCliente;
-//        $_SESSION['carrito'] = array();
-//        header("Location: ../redirect_index_sesion_iniciada.php");
-//    }
-//}
-  if($adminDal->searchAdmin($admin) != NULL)
+if ($clientesDal->searchClient($cliente)!= NULL) 
 {
+    $cliente = $clientesDal->searchClient($cliente);
     $admin = $adminDal->searchAdmin($admin);
-    if ($admi->getNombre() != null) 
+    if($cliente->getNombre() != null)
+    {
+    //Pagina 
+        $nombre = $cliente->getNombre() . ' </br> ' . $cliente->getApellido();
+        $arrayCliente = array('nombre' => $nombre);
+        $_SESSION['cliente'] = $arrayCliente;
+        $_SESSION['carrito'] = array();
+        header("Location: ../redirect_index_sesion_iniciada.php");
+    }
+    else if ($admin->getNombre() != null) 
     {
     //Pagina 
         $nombre = $admin->getNombre() . ' </br> ' . $admin->getApellido();
@@ -46,9 +42,13 @@ $cliente->setPassword($password);
         echo "admin encontrado";
         //request.getRequestDispatcher("redirect_index_intranet_sesion_iniciada.jsp").forward(request, response);
     }
+    else
+    {
+        header("Location: ../access/error_login.php");
+    }
 }
-else
-{               
-    //Error login 
-    //request.getRequestDispatcher("error_login.jsp").forward(request, response);
-}   
+//else
+//{               
+//    //Error login 
+//    //request.getRequestDispatcher("error_login.jsp").forward(request, response);
+//}   

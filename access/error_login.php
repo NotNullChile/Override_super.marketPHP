@@ -1,6 +1,4 @@
-<?php 
-//Acentos en HTML
-header('Content-Type: text/html; charset=UTF-8');
+<?php
 session_start();
 require_once ('../conexion.php');
 require_once ('../model.dal/ProductoDal.php');
@@ -8,7 +6,6 @@ if(isset($_SESSION['cliente']))
 {
     $sessionCliente = $_SESSION['cliente'];
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -215,7 +212,7 @@ if(isset($_SESSION['cliente']))
                                        value=""
                                        required="true"
                                        placeholder="Sin puntos, guiones, ni DV"
-                                       autofocus>
+                                       autofocus/>
                                 <span class="tooltip">this is the tip!</span>
                             </div>
                             <div class="w3-col m1">&nbsp;</div>
@@ -232,7 +229,7 @@ if(isset($_SESSION['cliente']))
                             <div class="w3-col m4">
                                 <input type="password" 
                                        name="txt_password" 
-                                       value="" 
+                                       value=""
                                        placeholder="Ingrese su password"
                                        required="true"/>
                             </div>
@@ -254,6 +251,11 @@ if(isset($_SESSION['cliente']))
                         <div class="w3-row">&nbsp;</div>
                     </form>
                     <!--End of login form-->
+                    <!--Error message-->
+                    <div class="alert alert-danger">
+                        <strong>Username y/o password incorrecto(s)!</strong> Vuelva a escribir sus credenciales.
+                    </div>
+                    <!--End of error message-->
                 </div>
                 <!--End of login content-->
             </div>
@@ -287,7 +289,8 @@ if(isset($_SESSION['cliente']))
                                        name="txt_nuevo_rut" 
                                        placeholder="Sin puntos, guiones, ni DV" 
                                        value=""
-                                       required/>
+                                       required
+                                       />
                             </div>
                             <div class="w3-col m1">&nbsp;</div>
                         <!--End of RUT textbox-->
@@ -473,8 +476,8 @@ if(isset($_SESSION['cliente']))
                             <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.notnull.cl" property="cc:attributionName" rel="cc:attributionURL">
                                 notNull Chile</a> <br>Se distribuye bajo una <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"> Licencia Creative
                                     Commons Atribución-NoComercial-SinDerivar 4.0 Internacional</a>.<br />Basada en una obra en 
-                            <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/NotNullChile/Override_super.marketPHP" rel="dct:source">
-                            https://github.com/NotNullChile/Override_super.marketPHP</a>.
+                            <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/NotNullChile/Override_super.market" rel="dct:source">
+                            https://github.com/NotNullChile/Override_super.market</a>.
                     </h6>
                 </div>
                 <!--End of creative Commons license-->
@@ -484,7 +487,7 @@ if(isset($_SESSION['cliente']))
                 <!--NotNull logo-->
                 <div class="w3-col m1">
                     <br>
-                    <img src="../images/notnull.png" width="60%" alt="notnull"/>
+                    <img src="images/notnull.png" width="60%" alt="notnull"/>
                 </div>
                 <!--End of NotNull logo-->
                 <!--Blank column-->
