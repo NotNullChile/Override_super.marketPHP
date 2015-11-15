@@ -13,42 +13,53 @@ $cliente = new Cliente();
 ////Get
 $username = $_POST["txt_rut"];
 $password = $_POST["txt_password"];
+if(crypt($password, $clientesDal->passwordClient($username)) == $clientesDal->passwordClient($username)) 
+{
+    $esIgual = TRUE;
+}
+else
+{
+    $esIgual = FALSE;
+}
 ////SET Admin
 $admin->setUsername($username);
 $admin->setPassword($password);
+
 ////SET Cliente
 $cliente->setUsername($username);
-$cliente->setPassword($password);
+$cliente->setPassword(crypt($password, $clientesDal->passwordClient($username)));
 ////Consulta si existe el cliente
-if ($clientesDal->searchClient($cliente)!= NULL) 
-{
-    $cliente = $clientesDal->searchClient($cliente);
-    $admin = $adminDal->searchAdmin($admin);
-    if($cliente->getNombre() != null)
-    {
-    //Pagina 
-        $nombre = $cliente->getNombre() . ' </br> ' . $cliente->getApellido();
-        $arrayCliente = array('nombre' => $nombre);
-        $_SESSION['cliente'] = $arrayCliente;
-        $_SESSION['carrito'] = array();
-        header("Location: ../redirect_index_sesion_iniciada.php");
-    }
-    else if ($admin->getNombre() != null) 
-    {
-    //Pagina 
-        $nombre = $admin->getNombre() . ' </br> ' . $admin->getApellido();
-        $arrayAdmin = array('nombre' => $nombre);
-        $_SESSION['administrador'] = $arrayAdmin;
-        echo "admin encontrado";
-        //request.getRequestDispatcher("redirect_index_intranet_sesion_iniciada.jsp").forward(request, response);
+
+if ($clientesDal->searchClient($cliente)!= NULL || $esIgual == TRUE) 
+{    
+        $cliente = $clientesDal->searchClient($cliente);
+        $admin = $adminDal->searchAdmin($admin);
+        if($cliente->getNombre() != null)
+        {
+        //Pagina 
+            $nombre = $cliente->getNombre() . ' </br> ' . $cliente->getApellido();
+            $arrayCliente = array('nombre' => $nombre, 'rut' => $cliente->getRut(),
+                                  'email' => $cliente->getEmail(), 'telefono' => $cliente->getTelefono());
+            $_SESSION['cliente'] = $arrayCliente;
+            $_SESSION['carrito'] = array();
+            header("Location: ../redirect_index_sesion_iniciada.php");
+        }
+        else if ($admin->getNombre() != null) 
+        {
+        //Pagina 
+            $nombre = $admin->getNombre() . ' </br> ' . $admin->getApellido();
+            $arrayAdmin = array('nombre' => $nombre);
+            $_SESSION['administrador'] = $arrayAdmin;
+            echo "admin encontrado";
+            //request.getRequestDispatcher("redirect_index_intranet_sesion_iniciada.jsp").forward(request, response);
+        }
+        else
+        {
+            header("Location: ../access/error_login.php");
+        }
     }
     else
     {
         header("Location: ../access/error_login.php");
     }
-}
-//else
-//{               
-//    //Error login 
-//    //request.getRequestDispatcher("error_login.jsp").forward(request, response);
-//}   
+

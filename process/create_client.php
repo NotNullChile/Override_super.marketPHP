@@ -21,7 +21,8 @@ if ($password1 == $password2)
 {
     $passwordDefinitiva = $password1;
 }
-$clientes->setPassword($passwordDefinitiva);          
+$password = $clientes->crypt_blowfish_bydinvaders($passwordDefinitiva);
+$clientes->setPassword($password); 
 //Nos retornará un numero la consulta
 $resultado = $loginDal->insertLogin($clientes); 
 
@@ -33,19 +34,17 @@ $resultado = $loginDal->insertLogin($clientes);
             case 1 : 
                 echo 'cliente creado';
                 $clientesDal->insertCliente($clientes);
-                //request.getRequestDispatcher("redirect_index_cliente_creado.jsp").forward(request, response);
+                header("Location: ../access/redirect_index_cliente_creado.php");
                 break;
             //Si retorna 23000 Cliente ya registrado
             case 23000:
                 //Pagina a redirigir Cliente ya registrado
                 echo "cliente creado";
-                //request.getRequestDispatcher("error_signup_userexists.jsp").forward(request, response);
+                header("Location: ../access/error_signup_userexists.php");
                 break;
             //Error desconocido
             default: 
-                //out.print("Contáctese con el administrador de la pagina");
                 //Pagina a redirigir errorDesconocido
-                echo "error Desconocido";
                 //request.getRequestDispatcher("redirect_index_error.jsp").forward(request, response);
                 break;
         }

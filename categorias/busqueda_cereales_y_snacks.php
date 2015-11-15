@@ -102,7 +102,7 @@ if(isset($_SESSION['cliente']))
                                     echo("<i class='fa fa-shopping-cart'></i>&nbsp;Carro de Compras");
                                     echo("</a><br>");
                                     
-                                    echo("<a class='btn btn-block btn-success' href='user_profile.jsp'>");
+                                    echo("<a class='btn btn-block btn-success' href='../intranet/user_profile.php'>");
                                     echo("<i class='fa fa-user'></i>&nbsp;Mi Perfil");
                                     echo("</a><br>");
 
@@ -115,7 +115,7 @@ if(isset($_SESSION['cliente']))
                                 {
                                     echo("<br>&nbsp;<br>");
                                     
-                                    echo("<a class='btn btn-block btn-info' href='redirect_iniciar_sesion.jsp'>");
+                                    echo("<a class='btn btn-block btn-info' href='../access/redirect_iniciar_sesion.php'>");
                                     echo("<i class='fa fa-shopping-cart'></i>&nbsp;Carro de Compras");
                                     echo("</a><br>");
                                     

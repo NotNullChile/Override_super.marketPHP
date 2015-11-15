@@ -18,7 +18,7 @@ if(isset($_SESSION['cliente']))
         <title>Login</title>
         <link rel="stylesheet" href="../w3.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="../style.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -116,7 +116,7 @@ if(isset($_SESSION['cliente']))
                                     echo("<i class='fa fa-shopping-cart'></i>&nbsp;Carro de Compras");
                                     echo("</a><br>");
                                     
-                                    echo("<a class='btn btn-block btn-success' href='user_profile.php'>");
+                                    echo("<a class='btn btn-block btn-success' href='../intranet/user_profile.php'>");
                                     echo("<i class='fa fa-user'></i>&nbsp;Mi Perfil");
                                     echo("</a><br>");
 

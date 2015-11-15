@@ -65,4 +65,28 @@ class ClientesDal
             $ex->getTraceAsString();            
         }
     }
+    
+    function passwordClient($username)
+    {
+        require_once ('../conexion.php');
+        require_once ('../model.business/Cliente.php');   
+        require_once ('../model.business/Persona.php');    
+        try 
+        {
+            $conexion = new conexion();
+            $cliente = new Cliente();
+            $sql =   "SELECT contraseña FROM login WHERE username = " . $username . ";";
+            $conn = $conexion->conn();
+            $query = $conn->query($sql);
+            $rows = $query->fetchAll();
+            foreach($rows as $row)
+            {
+                return $contraseña = $row["contraseña"];
+            }
+        }
+        catch (Exception $ex) 
+        {
+            $ex->getTraceAsString();            
+        }
+    }
 }
