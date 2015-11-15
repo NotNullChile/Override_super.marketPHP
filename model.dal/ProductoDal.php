@@ -699,7 +699,7 @@ class ProductoDal
                             echo('<h6>SKU:<input type="text" name="id_producto" value="' . $idProducto . '" readonly=true  style="border: none"/></h6>');
                             echo('<h3>' . $descripcion . '</h3><br>');
                             echo('<h3>Precio Unitario: ' . number_format($precioUnitario) . ' <input type="hidden" name="txt_precio" value="' . $precioUnitario . '"/> </h3>');
-                            echo('<h5>Stock: ' . $stock . ' unidades.</h5><br><input type="hidden" name="txt_image" value=" ' . $urlFoto . '" style="border: none"  />');   
+                            echo('<h5>Stock: ' . $stock . ' unidades.</h5><br><input type="hidden" name="txt_image" value="' . $urlFoto . '" style="border: none"  />');   
                             echo('<br><br>');
                         echo('</div>');
                         echo('<div class="w3-container green-d3 row w3-padding-8">');

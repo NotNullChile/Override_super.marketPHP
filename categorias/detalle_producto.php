@@ -194,7 +194,7 @@ if(isset($_SESSION['cliente']))
                 <div class="w3-container red">
                     <h2>Detalles del producto:&nbsp;&nbsp;<i class="fa fa-search"></i> </h2>
                 </div>
-                <form action="procesar_carro.do" method="POST">
+                <form action="../process/ProcesarCarro.php" method="POST">
                 <div class="w3-row-margin">
                  <?php
                 
