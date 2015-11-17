@@ -25,7 +25,7 @@ class LoginDal
         }
         finally 
         {
-            $sql->closeCursor();
+            
         }
     }
 }

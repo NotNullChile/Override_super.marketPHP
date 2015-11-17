@@ -9,7 +9,7 @@ require_once ('../model.business/Marcas.php');
 if(isset($_SESSION['cliente']))
 {
     $sessionCliente = $_SESSION['cliente'];
-    $listCarro[] = $_SESSION['carro'];
+    $listCarro = $_SESSION['carro'];
 }
 
 ?>
@@ -277,31 +277,31 @@ if(isset($_SESSION['cliente']))
 
                         for($i = 0; $i < count($listCarro); $i++ )
                         {
-//                            //$total = $total + $c->subTotalCarro();
+//                            $total = $total + $c->subTotalCarro();
                         ?>
                         <div class="w3-row w3-padding">
                             <div class="w3-col m1">
                                 <strong><?php echo $listCarro[$i]['idProducto'];?></strong>
                             </div>
                             <div class="w3-col m2">
-                                <strong><img src="<?php //echo "../imagesProducts/" . $listCarro['urlFoto'];?>" width="80"/></strong>
+                                <strong><img src="<?php echo "../imagesProducts/" . $listCarro[$i]['urlFoto'];?>" width="80"/></strong>
                             </div>
                             <div class="w3-col m3">
-                                <strong><?php //echo $listCarro['nombreProducto'];?>
-                                        <br><?php //echo $listCarro['descripcionM'];?>
+                                <strong><?php echo $listCarro[$i]['nombreProducto'];?>
+                                        <br><?php echo $listCarro[$i]['descripcionM'];?>
                                     </strong>
                             </div>
                             <div class="w3-col m1">
-                                <strong><span class="badge"><?php //echo $listCarro['stock'];?></span></strong>
+                                <strong><span class="badge"><?php echo $listCarro[$i]['stock'];?></span></strong>
                             </div>
                             <div class="w3-col m1" align="right">
-                                <strong><?php //echo number_format($listCarro['precioUnitario']);?></strong>
+                                <strong><?php echo number_format($listCarro[$i]['precioUnitario']);?></strong>
                             </div>
                             <div class="w3-col m2" align="right">
                                 <strong><%=<?php //echo number_format($listCarro['subTotal']);?>%></strong>
                             </div>
                             <div class="w3-col m2" align="right">                                    
-                                    <button class="btn btn-danger" value="<?php //echo $listCarro['idProducto'];?>" name="btn_borrar">
+                                    <button class="btn btn-danger" value="<?php echo $listCarro[$i]['idProducto'];?>" name="btn_borrar">
                                         Eliminar
                                     </button>
                             </div>

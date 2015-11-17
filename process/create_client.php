@@ -45,6 +45,7 @@ $resultado = $loginDal->insertLogin($clientes);
             //Error desconocido
             default: 
                 //Pagina a redirigir errorDesconocido
+                echo $clientesDal->insertCliente($clientes);
                 //request.getRequestDispatcher("redirect_index_error.jsp").forward(request, response);
                 break;
         }

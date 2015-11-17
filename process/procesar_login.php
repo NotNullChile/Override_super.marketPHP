@@ -41,7 +41,7 @@ if ($clientesDal->searchClient($cliente)!= NULL || $esIgual == TRUE)
             $arrayCliente = array('nombre' => $nombre, 'rut' => $cliente->getRut(),
                                   'email' => $cliente->getEmail(), 'telefono' => $cliente->getTelefono());
             $_SESSION['cliente'] = $arrayCliente;
-            $_SESSION['carro'] = array();
+            //$_SESSION['carro'] = array();
             header("Location: ../redirect_index_sesion_iniciada.php");
         }
         else if ($admin->getNombre() != null) 

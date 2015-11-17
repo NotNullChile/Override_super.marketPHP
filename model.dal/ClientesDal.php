@@ -29,7 +29,7 @@ class ClientesDal
         } 
         catch (PDOException $exc) 
         {
-            return $exc->getCode();
+            echo $exc->getMessage();
         }
     }
     function searchClient(Cliente $c)
