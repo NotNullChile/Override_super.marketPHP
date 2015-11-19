@@ -42,7 +42,7 @@ class VentaProductoDal
         } 
         catch (Exception $exc) 
         {
-            echo $exc->getTraceAsString();
+            die();
         }
     }
 }

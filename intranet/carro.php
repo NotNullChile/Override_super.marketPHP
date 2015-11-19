@@ -177,23 +177,23 @@ if(isset($_SESSION['cliente']))
             <!--Sidebar-->
                         <!--Sidebar-->
             <div class="list-group w3-col m2">
-            <a class="list-group-item " href=../index.jsp> <img src="../icons/Override.png" width="30" height="30" alt="Override"/>
+            <a class="list-group-item " href=../index.php> <img src="../icons/Override.png" width="30" height="30" alt="Override"/>
                 &nbsp;Home</a>
-            <a class="list-group-item" href="../categorias/busqueda_abarrotes.jsp"><img src="../icons/abarrotes.png" width="30" height="30" alt="abarrotes"/>
+            <a class="list-group-item" href="../categorias/busqueda_abarrotes.php"><img src="../icons/abarrotes.png" width="30" height="30" alt="abarrotes"/>
                         &nbsp;Abarrotes</a>
-            <a class="list-group-item" href="../categorias/busqueda_alimentos_congelados.jsp"><img src="../icons/alimentos_congelados.png" width="30" height="30" alt="alimentos_congelados"/>
+            <a class="list-group-item" href="../categorias/busqueda_alimentos_congelados.php"><img src="../icons/alimentos_congelados.png" width="30" height="30" alt="alimentos_congelados"/>
                         &nbsp;Alimentos Congelados</a>
-            <a class="list-group-item" href="../categorias/busqueda_bebidas_y_licores.jsp"><img src="../icons/bebidas_y_licores.png" width="30" height="30" alt="bebidas_y_licores"/>
+            <a class="list-group-item" href="../categorias/busqueda_bebidas_y_licores.php"><img src="../icons/bebidas_y_licores.png" width="30" height="30" alt="bebidas_y_licores"/>
                         &nbsp;Bebidas y Licores</a>
-            <a class="list-group-item" href="../categorias/busqueda_carnes.jsp"> <img src="../icons/carnes.png" width="30" height="30" alt="carnes"/>
+            <a class="list-group-item" href="../categorias/busqueda_carnes.php"> <img src="../icons/carnes.png" width="30" height="30" alt="carnes"/>
                         &nbsp;Carnes</a>
-            <a class="list-group-item" href="../categorias/busqueda_cereales_y_snacks.jsp"> <img src="../icons/cereales_y_snacks.png" width="30" height="30" alt="hogar_y_limpieza"/>
+            <a class="list-group-item" href="../categorias/busqueda_cereales_y_snacks.php"> <img src="../icons/cereales_y_snacks.png" width="30" height="30" alt="hogar_y_limpieza"/>
                         &nbsp;Cereales y Snacks</a>
-            <a class="list-group-item" href="../categorias/busqueda_desayuno_y_once.jsp"> <img src="../icons/desayuno_y_once.png" width="30" height="30" alt="desayuno_y_once"/>
+            <a class="list-group-item" href="../categorias/busqueda_desayuno_y_once.php"> <img src="../icons/desayuno_y_once.png" width="30" height="30" alt="desayuno_y_once"/>
                         &nbsp;Desayuno y Once</a>
-            <a class="list-group-item" href="../categorias/busqueda_hogar_y_limpieza.jsp"> <img src="../icons/hogar_y_limpieza.png" width="30" height="30" alt="hogar_y_limpieza"/>
+            <a class="list-group-item" href="../categorias/busqueda_hogar_y_limpieza.php"> <img src="../icons/hogar_y_limpieza.png" width="30" height="30" alt="hogar_y_limpieza"/>
                         &nbsp;Hogar y Limpieza</a>
-            <a class="list-group-item" href="../categorias/busqueda_mascotas.jsp"> <img src="../icons/mascotas.png" width="30" height="30" alt="mascotas"/>
+            <a class="list-group-item" href="../categorias/busqueda_mascotas.php"> <img src="../icons/mascotas.png" width="30" height="30" alt="mascotas"/>
                         &nbsp;Mascotas</a>
                 <!--/nav-->
             </div>
@@ -220,7 +220,7 @@ if(isset($_SESSION['cliente']))
                 <br><br>
                 <!--End of title bar-->
               
-                <form action = carro.php  method='POST'>                     
+                <form action = ../process/ProcesarCarro.php  method='POST'>                     
                     <div class="w3-table">
                         <div class="w3-row amber">
                             <div class="w3-col m1">
@@ -251,33 +251,11 @@ if(isset($_SESSION['cliente']))
                         //ArrayList
                         $carro = new Carro();
                         $total = 0;
-                        //Tomará valor de button
-                        $id = 0; 
-
-                        if(isset($_POST['btn_borrar']))
+                        if($listCarro != null)
                         {
-                            //Toma valor de button
-                            $id = $_POST['btn_borrar'];
-                            for($i = 0;$i < count($listCarro) ;$i++)
-                            {
-                                if($id == $listCarro['idProducto'] )
-                                {
-                                    unset($listCarro[$i]);
-                                    break; 
-                                }                                
-                            }
-                        }
-                        else if(isset($_POST['btn_comprar']))
-                        {
-                            if(count($listCarro) > 0)
-                            {
-                                header("Location: datos_despacho.jsp");
-                            }                
-                        }
-
                         for($i = 0; $i < count($listCarro); $i++ )
                         {
-//                            $total = $total + $c->subTotalCarro();
+                            $total = $total + $listCarro[$i]['subTotal'];
                         ?>
                         <div class="w3-row w3-padding">
                             <div class="w3-col m1">
@@ -298,10 +276,10 @@ if(isset($_SESSION['cliente']))
                                 <strong><?php echo number_format($listCarro[$i]['precioUnitario']);?></strong>
                             </div>
                             <div class="w3-col m2" align="right">
-                                <strong><%=<?php //echo number_format($listCarro['subTotal']);?>%></strong>
+                                <strong><?php echo number_format($listCarro[$i]['subTotal']);?></strong>
                             </div>
                             <div class="w3-col m2" align="right">                                    
-                                    <button class="btn btn-danger" value="<?php echo $listCarro[$i]['idProducto'];?>" name="btn_borrar">
+                                    <button class="btn btn-danger" value="<?php echo $i;?>" name="btn_borrar">
                                         Eliminar
                                     </button>
                             </div>
@@ -309,6 +287,7 @@ if(isset($_SESSION['cliente']))
                         </div>
                         <?php
                             }
+                        }
                         ?>
                         <div class="w3-row-padding blue-d1 ">
                             <div class="w3-col m8" align="right">
@@ -318,23 +297,25 @@ if(isset($_SESSION['cliente']))
                             </div>
                             <div class="w3-col m2" align="right">
                                 <br>&nbsp;
-                                <strong><%=formato.format(total)%></strong>
+                                <strong><?php echo number_format($total)?></strong>
                                 <br>&nbsp;
                             </div>
                         </div>
                                 <div>&nbsp;</div>
                         <div class="w3-row-padding">
                             <div class="w3-col m5">
-                                <a class="btn btn-success btn-block" href="../categorias/resultados_busqueda.php">
-                                    &laquo;&nbsp;Volver a productos</a>
+                                <a class="btn btn-success btn-block" href="../index.php">
+                                    &laquo;&nbsp;Volver al inicio</a>
                             </div>
-                            <div class="w3-col m2">&nbsp;</div>
+                            <div class="w3-col m2">&nbsp;</div>                           
                             <div class="w3-col m5">
-                                <input class="btn btn-success btn-block" 
-                                       type="submit" 
-                                       value="Continuar a Datos de Despacho &raquo;" 
-                                       name="btn_comprar">                               
-                            </div>    
+                            <?php
+                            if(count($listCarro) > 0)
+                            {
+                                echo "<a class='btn btn-success btn-block' href= 'datos_despacho.php'> Continuar a Datos de Despacho &raquo;</a>";
+                            }               
+                            ?>                          
+                            </div>  
                         </div>
                     </div>
                 </form>

@@ -106,7 +106,7 @@ class Producto
 
     public function subTotalCarro()
     {
-        return ($stock * $precioUnitario);
+        return ($this->getStock() * $this->getPrecioUnitario());
     }
     
     public function subTotal()

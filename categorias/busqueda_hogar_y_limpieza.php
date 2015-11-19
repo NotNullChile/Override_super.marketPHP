@@ -98,7 +98,7 @@ if(isset($_SESSION['cliente']))
                                 if(isset($sessionCliente))
                                 {
                                     $sessionCliente['nombre'];
-                                    echo("<a class='btn btn-block btn-info' href='carro.jsp'>");
+                                    echo("<a class='btn btn-block btn-info' href='../intranet/carro.php'>");
                                     echo("<i class='fa fa-shopping-cart'></i>&nbsp;Carro de Compras");
                                     echo("</a><br>");
                                     

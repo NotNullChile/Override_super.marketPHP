@@ -21,7 +21,7 @@ try
             $carrito[] = array('descripcionM' => $m->getDescripcion(), 'idProducto' => $c->getIdProducto(),
                                'marca' => $c->getMarca(), 'nombreProducto' => $c->getNombreProducto(),
                                'precioUnitario' => $c->getPrecioUnitario(), 'stock' => $c->getStock(),
-                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotal());
+                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotalCarro());
         }   
     if (isset($_SESSION['carro'])) 
         {
@@ -45,24 +45,35 @@ try
                     }
                 }
                 if ($pos != -1) 
-                {
+                {                 
                    $cuanto = $carrito[$pos]['stock'] + $c->getStock(); 
-                   $carrito[] = array('descripcionM' => $m->getDescripcion(), 'idProducto' => $c->getIdProducto(),
+                   $carrito[$pos] = array('descripcionM' => $m->getDescripcion(), 'idProducto' => $c->getIdProducto(),
                                'marca' => $c->getMarca(), 'nombreProducto' => $c->getNombreProducto(),
                                'precioUnitario' => $c->getPrecioUnitario(), 'stock' => $cuanto,
-                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotal()); 
+                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotalCarro()); 
+                    
                 }
                 else
                 {
                    $carrito[] = array('descripcionM' => $m->getDescripcion(), 'idProducto' => $c->getIdProducto(),
                                'marca' => $c->getMarca(), 'nombreProducto' => $c->getNombreProducto(),
                                'precioUnitario' => $c->getPrecioUnitario(), 'stock' => $c->getStock(),
-                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotal()); 
+                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotalCarro()); 
                 }
                
              }
              
         }
+        if(isset($_POST['btn_borrar']))
+        {
+            //Toma valor de button
+            $id = $_POST['btn_borrar'];
+            //Elimina un indice del array
+            unset($carrito[$id]);
+            //Reemplaza el indice eliminado
+            array_splice($carrito,$id,null);
+        }
+        
         if(isset($carrito))
         {
            $_SESSION['carro'] = $carrito;  
