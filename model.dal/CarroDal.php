@@ -13,17 +13,17 @@ class CarroDal
            $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
            $orden = $c->getOrden();
            $query = $conn->prepare("INSERT INTO carrito VALUES(null,:orden);");
-           $query->bindParam($query, $orden);
+           $query->bindParam(':orden', $orden);
            
            $query->execute();
        } 
        catch (PDOException $exc) 
        {
-           return $exc->getCode();
+           return $exc->getMessage();
        } 
        finally 
        {
-           die();
+           
        }
     }
     function buscarProductoXIdProducto(Carro $c)
@@ -52,7 +52,32 @@ class CarroDal
        } 
        finally 
        {
+       }
+        
+    }
+    function countCarrito()
+    {
+       include_once '../conexion.php';
+       include_once '../model.business/Carro.php';
+       try 
+       {
+           $conexion = new conexion();
+           $conn = $conexion->conn();
+           $query = $conn->prepare("SELECT count(idCarrito)+1 as 'count' FROM carrito;");   
+           $query->execute();
+           $rows = $query->fetchAll();
+           foreach ($rows as $row)
+           {
+               return $row['count'];
+           }
+           return null;
+       } 
+       catch (PDOException $exc) 
+       {
            die();
+       } 
+       finally 
+       {
        }
         
     }

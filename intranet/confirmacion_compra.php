@@ -6,12 +6,15 @@ require_once ('../conexion.php');
 require_once ('../model.business/Carro.php');
 require_once ('../model.business/Producto.php');
 require_once ('../model.business/Marcas.php');
-require_once ('../model.dal/ComunaDal.php');
-if(isset($_SESSION['cliente']) && isset($_SESSION['carro']))
+require_once ('../model.dal/MetodoDePagosDal.php');
+require_once ('../model.dal/CarroDal.php');
+if(isset($_SESSION['cliente']) && isset($_SESSION['despacho']) && isset($_SESSION['metodo_pago']) && isset($_SESSION['carro']))
 {
-    $sessionCliente = $_SESSION['cliente'];
-
-
+    $sessionCliente     = $_SESSION['cliente'];
+    $sessionDespacho    = $_SESSION['despacho'];
+    $sessionMetodo      = $_SESSION['metodo_pago'];
+    $listCarro          = $_SESSION['carro'];
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,9 +30,11 @@ if(isset($_SESSION['cliente']) && isset($_SESSION['carro']))
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="icon" type="image/ico" href="images/override.ico">
+        <link rel="icon" type="image/ico" href="../images/override.ico">
+        <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     </head>
     <body>
+
         <!--header-->
         <header class="w3-container red w3-row">
             <!--Blank column(1)-->
@@ -85,7 +90,7 @@ if(isset($_SESSION['cliente']) && isset($_SESSION['carro']))
                     {
                         header("Location: ../access/redirect_iniciar_sesion.php");
                     }
-                ?>
+                ?> 
             </div>
             <!--End of shopping cart link-->
             <!--Login link (2)-->
@@ -94,7 +99,7 @@ if(isset($_SESSION['cliente']) && isset($_SESSION['carro']))
                 <br>
                 <div class="input-group">
                     <span class="input-group-btn">    
-                           <?php
+                             <?php
                                 if(isset($sessionCliente))
                                 {
                                     $sessionCliente['nombre'];
@@ -130,7 +135,7 @@ if(isset($_SESSION['cliente']) && isset($_SESSION['carro']))
                                     echo("<i class='fa fa-user-plus'></i>&nbsp;Nuevo Usuario");
                                     echo("</a>");
                                 }
-                            ?>           
+                            ?>       
                     </span>
                 </div><!-- /input-group -->  
             </div>
@@ -210,105 +215,192 @@ if(isset($_SESSION['cliente']) && isset($_SESSION['carro']))
                 <div>
                     <ol class="breadcrumb">
                         <li><span class="badge">1</span> <span class="label label-default">Carro de Compras</span></li>
-                        <li><span class="badge">2 </span>&nbsp;<span class="label label-primary">Datos de Despacho</span></li>
+                        <li><span class="badge">2 </span>&nbsp;<span class="label label-default">Datos de Despacho</span></li>
                         <li><span class="badge">3 </span>&nbsp;<span class="label label-default">Método de Pago</span></li>
-                        <li><span class="badge">4 </span>&nbsp;<span class="label label-default">Confirmación de Compra</span></li>
+                        <li><span class="badge">4 </span>&nbsp;<span class="label label-primary">Confirmación de Compra</span></li>
                     </ol>
                 </div>
                 <!--End of breadcrumbs-->
                 <!--Title bar-->
                 <div class="w3-container red">
-                    <h2>Datos de Despacho:&nbsp;&nbsp;<i class="fa fa-flip-horizontal fa-truck"></i> </h2>
+                    <h2>Confirmación de su Compra:&nbsp;&nbsp;<i class="fa fa-check-square-o"></i> </h2>
                 </div>
                 <br><br>
                 <!--End of title bar-->
-              
-                <form action="../process/create_despacho.php" method="POST">        
+                <?php          
+                    //Class       
+                    $carritoDal = new CarroDal();
+                    $carritoOrden = "Orden de Compra N° " . $carritoDal->countCarrito();
+                    
+                    //Fecha de hoy
+                    $hoy = getdate(); 
+                    $dia = $hoy['mday'] - 1;  
+                    $fecha = $dia.'-'.$hoy['mon'].'-'.$hoy['year'];
+
+                ?>  
+                <form action="../process/procesar_venta.php" method="POST">        
                     
                     <div class="w3-table">
                         <div class="w3-row-padding amber">
                             <div class="w3-col m1">&nbsp;</div>
                             <div class="w3-col m10">
-                                <strong>Indique los detalles de entrega de su(s) producto(s)</strong>
+                                <strong>Por favor revise los detalles de su orden.</strong>
                                 <br>&nbsp;
                             </div>
                             <div class="w3-col m1">&nbsp;</div>
                         </div>
-                        <div class="w3-row w3-padding">
-                            <div class="w3-col m1">
-                                &nbsp;
+                        <br>&nbsp;
+                        <div class="w3-card-4 yellow-l5" style="font-family: 'Raleway', sans-serif;">
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m10" align="right">
+                                    <strong>@Override super.market(<i class="fa fa-shopping-cart"></i>)</strong>
+                                    <br>&nbsp;
+                                </div>
+                                <div class="w3-col m10" align="right">
+                                    <i class="fa fa-calendar"></i>
+                                    Fecha de compra: <?php echo $fecha; ?>
+                                    <input type="hidden" name="txt_fecha" value="<?php echo $fecha; ?>" />
+                                    <br>&nbsp;
+                                </div>
+                                <div class="w3-col m1">&nbsp;</div>
                             </div>
-                            <div class="w3-col m5">
-                                Dirección
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m10" align="center"><?php echo $carritoOrden ?></div>
+                                <div class="w3-col m1">&nbsp;</div>
                             </div>
-                            <div class="w3-col m4">
-                                <input type="text"
-                                       placeholder="Calle"
-                                       class="form-control"
-                                       name="txt_despacho" 
-                                       value="" 
-                                       required="true" 
-                                       autofocus/>
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m5"><i class="fa fa-user"></i>&nbsp;<strong>Detalles del Cliente:</strong></div>
+                                <div class="w3-col m1">&nbsp;</div>
                             </div>
-                            <div class="w3-col m1">
-                                <input type="number"
-                                       placeholder="nº"
-                                       class="form-control"
-                                       name="txt_numeroCasa" 
-                                       value="" 
-                                       required="true" />
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">Nombre:</div>
+                                <div class="w3-col m5"><?php echo $sessionCliente['nombre'];?></div>
+                                <div class="w3-col m1">&nbsp;</div>
                             </div>
-                            <div class="w3-col m1"></div>
-                        </div>
-                        <div class="w3-row w3-padding">
-                            <div class="w3-col m1">
-                                &nbsp;
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">RUT:</div>
+                                <div class="w3-col m5"><?php echo $sessionCliente['rut'];?></div>
+                                <div class="w3-col m1">&nbsp;</div>
                             </div>
-                            <div class="w3-col m5">
-                                Comuna
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">email:</div>
+                                <div class="w3-col m5"><?php echo $sessionCliente['email'];?></div>
+                                <div class="w3-col m1">&nbsp;</div>
                             </div>
-                            <div class="w3-col m5">
-                                
-                                <select name="dll_comunas" class="form-control"> 
-                                <?php
-                                $comunaDal = new ComunaDal();
-                                
-                                $comunaDal->showComunas();
-                                ?>                          
-                                </select>
-                            </div>    
-                            <div class="w3-col m1"></div>
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m5"><i class="fa fa-flip-horizontal fa-truck"></i>&nbsp;<strong>Detalles del Despacho:</strong></div>
+                                <div class="w3-col m1">&nbsp;</div>
+                            </div>
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">Persona que recibirá el pedido:</div>
+                                <div class="w3-col m5"><?php echo $sessionDespacho['nombrePersona'];?></div>
+                                <div class="w3-col m1">&nbsp;</div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">Dirección:</div>
+                                <div class="w3-col m5"><?php echo $sessionDespacho['direccion'];?></div>
+                                <div class="w3-col m1">&nbsp;</div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">Comuna:</div>
+                                <div class="w3-col m5"><?php echo $sessionDespacho['nombreComuna'];?></div>
+                                <div class="w3-col m1">&nbsp;</div>
+                            </div>
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m5"><i class="fa fa-credit-card"></i>&nbsp;<strong>Detalles de Pago:</strong></div>
+                                <div class="w3-col m1">&nbsp;</div>
+                            </div>
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">Costo de entrega:</div>
+                                <div class="w3-col m5">$4.990</div>
+                                <div class="w3-col m1">&nbsp;</div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">Método de Pago:</div>
+                                <div class="w3-col m5"><?php echo $sessionMetodo['descripcion'];?></div>
+                                <div class="w3-col m1">&nbsp;</div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">SubTotal:</div>
+                                <div class="w3-col m5">
+                                    <?php
+                                    $subTotalDespacho   =  round(4990/1.19);
+                                    $ivaDespacho        =  round($subTotalDespacho*0.19);
+                                    $totalDespacho      =  $subTotalDespacho + $ivaDespacho;
+                                    $subTotal = 0;
+                                    $iva = 0;
+                                    $totalAPagar = 0;
+                                        for($i = 0; $i < count($listCarro); $i++)
+                                        {
+                                            $subTotal += $listCarro[$i]['subTotal'];
+                                            $iva += $listCarro[$i]['calculoIVA'];
+                                            $totalAPagar += $listCarro[$i]['totalAPagar'];
+                                        }
+                                    ?>
+                                    <?php echo number_format($subTotal+$subTotalDespacho)?>
+                                    <input type="hidden" name="txt_subtotal" value="<?php echo $subTotal+$subTotalDespacho?>" size="1" />
+                                </div>
+                                <div class="w3-col m1">&nbsp;</div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">IVA:</div>
+                                <div class="w3-col m5">
+                                    <?php echo number_format($iva+$ivaDespacho)?>
+                                    <input type="hidden" name="txt_iva" value="<?php echo $iva+$ivaDespacho?>" size="1" />
+                                </div>
+                                <div class="w3-col m1">&nbsp;</div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col m1">&nbsp;</div>
+                                <div class="w3-col m4">Total a Pagar:</div>
+                                <div class="w3-col m5">
+                                    <?php echo number_format($totalAPagar+$totalDespacho)?>
+                                    <input type="hidden" name="txt_total" value="<?php echo $totalAPagar+$totalDespacho?>" size="1" />
+                                </div>
+                                <div class="w3-col m1">&nbsp;</div>
+                            </div>
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">&nbsp;</div>
+                            <div class="w3-row-padding">&nbsp;</div>
                         </div>
                         
-                        <div class="w3-row w3-padding">
-                            <div class="w3-col m1">
-                                &nbsp;
-                            </div>
-                            <div class="w3-col m5">
-                                Persona a Entregar
-                            </div>
-                            <div class="w3-col m5">
-                                <input type="text"
-                                       placeholder="Nombre"
-                                       class="form-control"
-                                       name="txt_persona_a_entregar" 
-                                       value="" 
-                                       required="true" />
-                            </div>
-                            <div class="w3-col m1"></div>
-                        </div>
                         <div>&nbsp;</div>
                         <div class="w3-row-padding">
                             <div class="w3-col m5">
-                                <a class="btn btn-success btn-block" href="carro.php">
-                                    &laquo;&nbsp;Volver a Carro de Compras</a>
+                                <a class="btn btn-success btn-block" href="metodo_pago.php">
+                                    &laquo;&nbsp;Volver a Método de Pago</a>
                             </div>
                             <div class="w3-col m2">&nbsp;</div>
                             <div class="w3-col m5">
-                                <input class="btn btn-success btn-block" 
+                                <input class="btn btn-primary btn-block" 
                                        type="submit" 
-                                       value="Continuar a Método de Pago &raquo;" 
-                                       name="btn_continuar">
+                                       value="Comprar" 
+                                       name="btn_comprar">
                             </div>    
                         </div>
                     </div>
@@ -368,14 +460,12 @@ if(isset($_SESSION['cliente']) && isset($_SESSION['carro']))
         </footer>
         <!--End of footer-->
     </body>
-    <?php
-
+<?php   
     }
     else
     {
         header("Location: ../index.php");
     }
-    
 ?>
 </html>
 

@@ -2,6 +2,48 @@
 
 class ProductoDal 
 {
+    function insertProducto(Producto $p)
+    {
+        require_once '../conexion.php';
+        require_once '../model.business/Cliente.php';
+        try 
+        {
+            $conexion = new conexion();
+            $conn = $conexion->conn();
+            $idProducto = $p->getIdProducto();
+            $nombreProducto = $p->getNombreProducto();
+            $precioUnitario = $p->getPrecioUnitario();
+            $stock = $p->getStock();
+            $descripcion = $p->getDescripcion();
+            $tipoProducto = $p->getTipoProducto();
+            $marca = $p->getMarca();
+            $urlFoto = $p->getUrlFoto();
+            $estado = $p->getEstado();
+            $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            $sql = $conn->prepare("INSERT INTO productos VALUES(:idProducto,:nombreProducto, "
+                                . ":precioUnitario,:stock,:descripcion,:tipoProducto, :marca, "
+                                . ":urlFoto, :estado);");
+            $sql->bindParam(':idProducto', $idProducto);
+            $sql->bindParam(':nombreProducto', $nombreProducto);
+            $sql->bindParam(':precioUnitario', $precioUnitario);
+            $sql->bindParam(':stock', $stock);
+            $sql->bindParam(':descripcion', $descripcion);
+            $sql->bindParam(':tipoProducto', $tipoProducto);
+            $sql->bindParam(':marca', $marca);
+            $sql->bindParam(':urlFoto', $urlFoto);
+            $sql->bindParam(':estado', $estado);
+                       
+            return $sql->execute();
+        } 
+        catch (PDOException $exc) 
+        {
+            echo $exc->getMessage();
+        }
+    
+    }
+    
+    
+    
     function listaProductoEnOfertaIndex()
     {
         require_once ('conexion.php');
@@ -729,6 +771,77 @@ class ProductoDal
             echo $exc->getTraceAsString();
         }           
     }
-    
+    function stockProducto($idProducto)
+    {
+        require_once ('../conexion.php');
+        try 
+        {
+            $c = new conexion();
+            $sql = "SELECT stock FROM productos WHERE idProducto = " . $idProducto . ";"; 
+            //se conecta a la BD
+            $conn = $c->conn();
+            //Crea la consulta
+            $query = $conn->query($sql);
+            //Toma los valores de la consulta;
+            $rows = $query->fetchAll();
+            foreach($rows as $row) 
+            {
+                return $row['stock'];
+            }
+        } 
+        catch (Exception $exc) 
+        {
+            echo $exc->getTraceAsString();
+        }       
+    }
+    function updateProductoStock($stock, $id)
+    {
+        require_once '../conexion.php';
+        try 
+        {
+            $conexion = new conexion();
+            $conn = $conexion->conn();
+            $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            $sql = $conn->prepare("UPDATE productos p INNER JOIN tipoProductos t "
+                                . "ON p.idTipoProducto = t.idTipoProducto INNER JOIN marcas m "
+                                . "ON p.idMarca = m.idMarca "
+                                . "SET p.stock = :stock WHERE p.idProducto = :id ;");
+            $sql->bindParam(':stock', $stock);
+            $sql->bindParam(':id', $id);
+
+                       
+            return $sql->execute();
+        } 
+        catch (PDOException $exc) 
+        {
+            echo $exc->getMessage();
+        }
+              
+    }
+    function maxProducto()
+        {
+        include_once '../conexion.php';
+        try 
+        {
+            $conexion = new conexion();
+            $conn = $conexion->conn();
+            $query = $conn->prepare("SELECT MAX(idProducto)+1 as 'max' FROM productos;");   
+            $query->execute();
+            $rows = $query->fetchAll();
+            foreach ($rows as $row)
+            {
+                return $row['max'];
+            }
+            return null;
+        } 
+        catch (PDOException $exc) 
+        {
+            die();
+        } 
+        finally 
+        {
+        }
+        
+        }
     
 }

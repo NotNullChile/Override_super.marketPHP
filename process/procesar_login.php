@@ -23,7 +23,7 @@ else
 }
 ////SET Admin
 $admin->setUsername($username);
-$admin->setPassword($password);
+$admin->setPassword(crypt($password, $adminDal->passwordAdmin($username)));
 
 ////SET Cliente
 $cliente->setUsername($username);
@@ -50,8 +50,7 @@ if ($clientesDal->searchClient($cliente)!= NULL || $esIgual == TRUE)
             $nombre = $admin->getNombre() . ' </br> ' . $admin->getApellido();
             $arrayAdmin = array('nombre' => $nombre);
             $_SESSION['administrador'] = $arrayAdmin;
-            echo "admin encontrado";
-            //request.getRequestDispatcher("redirect_index_intranet_sesion_iniciada.jsp").forward(request, response);
+            header("Location: ../access/redirect_index_intranet_sesion_iniciada.php");
         }
         else
         {

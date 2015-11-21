@@ -8,7 +8,8 @@ try
     //Class
     $c = new Carro();
     $m = new Marcas(); 
-    
+    if (isset($_POST['id_producto']) || isset($_SESSION['carro']) )
+    {      
     if (isset($_POST['id_producto'])) 
         {
             $m->setDescripcion($_POST['txt_marca']);
@@ -21,7 +22,8 @@ try
             $carrito[] = array('descripcionM' => $m->getDescripcion(), 'idProducto' => $c->getIdProducto(),
                                'marca' => $c->getMarca(), 'nombreProducto' => $c->getNombreProducto(),
                                'precioUnitario' => $c->getPrecioUnitario(), 'stock' => $c->getStock(),
-                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotalCarro());
+                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotalCarro(),
+                               'calculoIVA' => $c->calculoIva(), 'totalAPagar' => $c->calculoTotalAPagar());
         }   
     if (isset($_SESSION['carro'])) 
         {
@@ -50,7 +52,8 @@ try
                    $carrito[$pos] = array('descripcionM' => $m->getDescripcion(), 'idProducto' => $c->getIdProducto(),
                                'marca' => $c->getMarca(), 'nombreProducto' => $c->getNombreProducto(),
                                'precioUnitario' => $c->getPrecioUnitario(), 'stock' => $cuanto,
-                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotalCarro()); 
+                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotalCarro(),
+                               'calculoIVA' => $c->calculoIva(), 'totalAPagar' => $c->calculoTotalAPagar());
                     
                 }
                 else
@@ -58,7 +61,8 @@ try
                    $carrito[] = array('descripcionM' => $m->getDescripcion(), 'idProducto' => $c->getIdProducto(),
                                'marca' => $c->getMarca(), 'nombreProducto' => $c->getNombreProducto(),
                                'precioUnitario' => $c->getPrecioUnitario(), 'stock' => $c->getStock(),
-                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotalCarro()); 
+                               'urlFoto' => $c->getUrlFoto(), 'subTotal' => $c->subTotalCarro(),
+                               'calculoIVA' => $c->calculoIva(), 'totalAPagar' => $c->calculoTotalAPagar()); 
                 }
                
              }
@@ -82,6 +86,12 @@ try
 
     
     header('Location: ../intranet/carro.php');
+     }
+     else
+     {
+         header('Location: ../index.php');
+     }    
+      
 
 }
 catch(Exception $e)

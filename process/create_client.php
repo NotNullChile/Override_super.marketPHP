@@ -7,6 +7,8 @@ require_once '../conexion.php';
 $clientes = new Cliente();
 $clientesDal = new ClientesDal();
 $loginDal = new LoginDal();
+if(isset($_POST["txt_nuevo_rut"]))
+{
 //Set Class
 $clientes->setRut($_POST["txt_nuevo_rut"]);
 $clientes->setNombre($_POST["txt_nuevo_nombre"]);
@@ -46,14 +48,20 @@ $resultado = $loginDal->insertLogin($clientes);
             default: 
                 //Pagina a redirigir errorDesconocido
                 echo $clientesDal->insertCliente($clientes);
-                //request.getRequestDispatcher("redirect_index_error.jsp").forward(request, response);
+                header("Location: ../access/error_login.php");
                 break;
         }
 
     }
     else
     {
-        //request.getRequestDispatcher("error_signup_differentpasswords.jsp").forward(request, response);
+        header("Location: ../access/error_login.php");
     }
+}
+else
+{
+    header("Location: ../index.php");
+}
+    
 
 

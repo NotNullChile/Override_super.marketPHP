@@ -1,22 +1,22 @@
 <?php
-class ComunaDal 
+
+class MetodoDePagosDal 
 {
-    function showComunas()
+   function showMetodosDePagos()
     {
         include_once '../conexion.php';
         try 
         {
             $conexion = new conexion();
             $conn = $conexion->conn();
-            $sql = "SELECT * FROM comunas ORDER BY 2;";
+            $sql = "SELECT * FROM metodosDePago ORDER by 1;";
             $rows = $conn->query($sql)->fetchAll();
             
             foreach ($rows as $row)
             {
-                $idComuna = $row['idComuna'];
-                $nombreComuna = $row['nombreComuna'];
-                
-                echo '<option value = "' . $idComuna . '">' . $nombreComuna . '</option>';                         
+                $idMetodo = $row['idMetodosDePago'];
+                $descripcion = $row['descripcion'];
+                echo '<option value = "' . $idMetodo . '">' . $descripcion . '</option>';                         
             }
             
         } 
@@ -28,19 +28,19 @@ class ComunaDal
         {
         }
     }
-    function nombreComunas($idComuna)
+    function nombreMetodoDePago($idMetodo)
     {
         include_once '../conexion.php';
         try 
         {
             $conexion = new conexion();
             $conn = $conexion->conn();
-            $sql = "SELECT nombreComuna FROM comunas WHERE idComuna = ". $idComuna .";";
+            $sql = "SELECT descripcion FROM metodosDePago WHERE idMetodosDePago = " . $idMetodo . ";";
             $rows = $conn->query($sql)->fetchAll();
             
             foreach ($rows as $row)
             {
-                return $nombreComuna = $row['nombreComuna'];
+                return $descripcion = $row['descripcion'];
             }
             
         } 

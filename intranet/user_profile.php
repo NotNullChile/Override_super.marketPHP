@@ -97,9 +97,12 @@ if(isset($_SESSION['cliente']))
                                 if(isset($sessionCliente))
                                 {
                                     $sessionCliente['nombre'];
-                                    echo("<a class='btn btn-block btn-info' href='carro.php'>");
-                                    echo("<i class='fa fa-shopping-cart'></i>&nbsp;Carro de Compras");
-                                    echo("</a><br>");
+                                    if(isset($_SESSION['carro']))
+                                    {
+                                        echo("<a class='btn btn-block btn-info' href='carro.php'>");                                  
+                                        echo("<i class='fa fa-shopping-cart'></i>&nbsp;Carro de Compras");
+                                        echo("</a><br>");
+                                    }
                                     
                                     echo("<a class='btn btn-block btn-success' href='user_profile.php'>");
                                     echo("<i class='fa fa-user'></i>&nbsp;Mi Perfil");
@@ -259,10 +262,13 @@ if(isset($_SESSION['cliente']))
                             Detalle de mis Compras:
                         </div>
                         <div class="w3-col m4">
+                            <select name='dll_ordenes' class='form-control'>
                                 <?php
                                 $ventaProductoDal = new VentaProductoDal();
-                                echo $ventaProductoDal->listaOrdenes($sessionCliente["rut"]);
+                                $rut = $sessionCliente["rut"];
+                                echo $ventaProductoDal->listaOrdenes($rut);
                                 ?>
+                            </select>
                             
                             <input type="submit" 
                                    class="btn btn-block btn-primary"
