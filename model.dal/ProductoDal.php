@@ -843,5 +843,109 @@ class ProductoDal
         }
         
         }
-    
+    function buscarProductoXId($idProducto)
+    {
+        require_once ('../conexion.php');
+        require_once ('../model.business/Producto.php');
+        try 
+        {
+            $c = new conexion();
+            $p = new Producto();
+            $sql = "SELECT p.idProducto, p.nombreProducto, p.precioUnitario, "
+                    . "p.stock, p.descripcion AS 'descripcion_P', t.descripcion AS 'descripcion_T', m.descripcion , p.urlFoto, p.estado "
+                    . "FROM productos p INNER JOIN tipoproductos t "
+                    . "ON p.idTipoProducto = t.idTipoProducto INNER JOIN marcas m "
+                    . "ON p.idMarca = m.idMarca "
+                    . "WHERE p.idProducto = " . $idProducto . ";";
+            //se conecta a la BD
+            $conn = $c->conn();
+            //Crea la consulta
+            $query = $conn->query($sql);
+            //Toma los valores de la consulta;
+            $rows = $query->fetchAll();
+            foreach($rows as $row) 
+            {
+                $p->setIdProducto($row['idProducto']);
+                $p->setNombreProducto($row['nombreProducto']);
+                $p->setPrecioUnitario($row['precioUnitario']);
+                $p->setStock((($row['stock'])));
+                $p->setDescripcion(($row['descripcion_P']));
+                $p->setDescripcionTipoP(($row['descripcion_T']));
+                $p->setDescripcionMarca(($row['descripcion']));
+                $p->setUrlFoto(($row['urlFoto']));
+                $p->setEstado(($row['estado']));
+                return $p;
+            }
+            return null;
+        } 
+        catch (Exception $exc) 
+        {
+            echo $exc->getTraceAsString();
+        }
+    }
+    function updateProducto(Producto $p)
+    {
+        require_once '../conexion.php';
+        require_once '../model.business/Producto.php';
+        try 
+        {
+            $conexion = new conexion();
+            $conn = $conexion->conn();
+            $idProducto = $p->getIdProducto();
+            $nombreProducto = $p->getNombreProducto();
+            $precioUnitario = $p->getPrecioUnitario();
+            $stock = $p->getStock();
+            $descripcion = $p->getDescripcion();
+            $tipoProducto = $p->getTipoProducto();
+            $marca = $p->getMarca();
+            $estado = $p->getEstado();
+            $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            $sql = $conn->prepare("UPDATE productos p INNER JOIN tipoProductos t "
+                                . "ON p.idTipoProducto = t.idTipoProducto INNER JOIN marcas m "
+                                . "ON p.idMarca = m.idMarca "
+                                . "SET p.nombreProducto = :nombreProducto, "
+                                . "p.precioUnitario = :precioUnitario, "
+                                . "p.stock = :stock, p.descripcion = :descripcion, "
+                                . "p.idTipoProducto = :tipoProducto, "
+                                . "p.idMarca = :marca, p.estado = :estado "
+                                . "WHERE p.idProducto = :idProducto;");
+            
+            $sql->bindParam(':idProducto', $idProducto);
+            $sql->bindParam(':nombreProducto', $nombreProducto);
+            $sql->bindParam(':precioUnitario', $precioUnitario);
+            $sql->bindParam(':stock', $stock);
+            $sql->bindParam(':descripcion', $descripcion);
+            $sql->bindParam(':tipoProducto', $tipoProducto);
+            $sql->bindParam(':marca', $marca);
+            $sql->bindParam(':estado', $estado);
+
+                       
+            return $sql->execute();
+        } 
+        catch (PDOException $exc) 
+        {
+            echo $exc->getMessage();
+        }
+              
+    }
+    function deleteProducto($idProducto)
+    {
+        require_once '../conexion.php';
+        require_once '../model.business/Producto.php';
+        try 
+        {
+            $conexion = new conexion();
+            $conn = $conexion->conn();
+            $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            $sql = $conn->prepare("DELETE FROM productos WHERE idProducto = :idProducto ;");
+            
+            $sql->bindParam(':idProducto', $idProducto);                
+            return $sql->execute();
+        } 
+        catch (PDOException $exc) 
+        {
+            echo $exc->getMessage();
+        }
+              
+    }
 }

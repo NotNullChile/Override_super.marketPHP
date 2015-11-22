@@ -26,7 +26,12 @@ if(isset($_SESSION['administrador']))
         <link rel="icon" type="image/ico" href="../images/override.ico">
     </head>
     <body>
-
+        <script>
+        function ayuda() 
+        {
+            alert("Este módulo sirve para crear una nueva Marca, en el cual debe ingresar el nombre de la Marca y luego presionar el botón agregar");          
+        }
+        </script>
         <!--header-->
         <header class="w3-container green-d1 w3-row">
             <!--Blank column(1)-->
@@ -149,8 +154,10 @@ if(isset($_SESSION['administrador']))
             <div class="w3-col m7 w3-card w3-padding">
                 <!--Title bar-->
                 <div class="w3-container red">
-                    <h2>Agregar nueva marca&nbsp;&nbsp; <img src="../icons/new_brand_w.png" width="50" height="50" alt="new_product_w"/>
+                    <h2>
+                        Agregar nueva marca&nbsp;&nbsp; <img src="../icons/new_brand_w.png" width="50" height="50" alt="new_product_w"/>
                     </h2>
+                    <p align="right" > <button class="btn btn-info" onclick="ayuda()"><i class="fa fa-question"></i></button>
                 </div>
                 <br>
                 <!--End of title bar-->

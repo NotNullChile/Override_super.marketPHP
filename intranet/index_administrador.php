@@ -26,7 +26,12 @@ if(isset($_SESSION['administrador']))
         <link rel="icon" type="image/ico" href="../images/override.ico">
     </head>
     <body>
-        
+        <script>
+        function ayuda() 
+        {
+            alert("Bienvenido soy @OverAyuda y me encontrarás en todos los módulos que aparecen aquí y te estaré ayudando :)");          
+        }
+        </script>
         
         <!--header-->
         <header class="w3-container green-d1 w3-row">
@@ -152,6 +157,7 @@ if(isset($_SESSION['administrador']))
                 <!--Title bar-->
                 <div class="w3-container red">
                     <h2>Home Intranet&nbsp;&nbsp;<i class="fa fa-spin fa-cog"></i> </h2>
+                    <p align="right" > <button class="btn btn-info" onclick="ayuda()"><i class="fa fa-question"></i></button>
                 </div>
                 <!--End of title bar-->
                 <!--First Row of items-->

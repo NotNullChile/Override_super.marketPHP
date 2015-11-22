@@ -44,6 +44,12 @@ if(isset($_SESSION['administrador']))
                 Control.value=Solo_Numerico(Control.value);
             }
         </script>
+        <script>
+        function ayuda() 
+        {
+            alert("Este módulo sirve para crear un nuevo Administrador, en el cual debe ingresar los datos que se solicitan y luego presionar el botón registrar");
+        }
+        </script>
         <!--header-->
         <header class="w3-container green-d1 w3-row">
             <!--Blank column(1)-->
@@ -165,10 +171,13 @@ if(isset($_SESSION['administrador']))
             <!--Content-->
             <div class="w3-col m7 w3-card w3-padding">
                 <!--Title bar-->
-                <div class="w3-container red">
-                    <h2>Agregar nuevo Administrador&nbsp;&nbsp; <img src="../icons/new_admin_w.png" width="50" height="50" alt="new_product_w"/>
+                <div class="w3-container red">                  
+                    <h2>
+                        Agregar nuevo Administrador&nbsp;&nbsp; <img src="../icons/new_admin_w.png" width="50" height="50" alt="new_product_w"/>                   
                     </h2>
+                    <p align="right" > <button class="btn btn-info" onclick="ayuda()"><i class="fa fa-question"></i></button>
                 </div>
+                
                 <br>
                 <!--End of title bar-->
                 <div>

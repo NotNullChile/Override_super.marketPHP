@@ -28,7 +28,12 @@ if(isset($_SESSION['administrador']))
         <link rel="icon" type="image/ico" href="../images/override.ico">
     </head>
     <body>
-
+        <script>
+        function ayuda() 
+        {
+            alert("En este módulo usted puede crear un nuevo Producto, solo debe llenar el siguiente formulario con los datos solicitados y presionar el botón Crear");          
+        }
+        </script>
         
         <!--header-->
         <header class="w3-container green-d1 w3-row">
@@ -153,6 +158,7 @@ if(isset($_SESSION['administrador']))
                 <div class="w3-container red">
                     <h2>Agregar nuevo producto&nbsp;&nbsp; <img src="../icons/new_product_w.png" width="50" height="50" alt="new_product_w"/>
                     </h2>
+                     <p align="right" > <button class="btn btn-info" onclick="ayuda()"><i class="fa fa-question"></i></button>
                 </div>
                 <br>
                 <!--End of title bar-->

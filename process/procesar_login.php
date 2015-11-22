@@ -38,8 +38,9 @@ if ($clientesDal->searchClient($cliente)!= NULL || $esIgual == TRUE)
         {
         //Pagina 
             $nombre = $cliente->getNombre() . ' </br> ' . $cliente->getApellido();
+            $nombreReporte = $cliente->getNombre() . ' ' . $cliente->getApellido();
             $arrayCliente = array('nombre' => $nombre, 'rut' => $cliente->getRut(),
-                                  'email' => $cliente->getEmail(), 'telefono' => $cliente->getTelefono());
+                                  'email' => $cliente->getEmail(), 'telefono' => $cliente->getTelefono(), 'nombreReporte' => $nombreReporte );
             $_SESSION['cliente'] = $arrayCliente;
             //$_SESSION['carro'] = array();
             header("Location: ../redirect_index_sesion_iniciada.php");

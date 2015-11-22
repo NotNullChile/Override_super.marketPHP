@@ -7,6 +7,7 @@ require_once ('../model.business/Carro.php');
 require_once ('../model.business/Producto.php');
 require_once ('../model.business/Marcas.php');
 require_once ('../model.dal/VentaProductoDal.php');
+
 if(isset($_SESSION['cliente']) && isset($_POST['dll_ordenes']))
 {
     $sessionCliente = $_SESSION['cliente'];
@@ -185,6 +186,11 @@ if(isset($_SESSION['cliente']) && isset($_POST['dll_ordenes']))
                 <!--Title bar-->
                 <div class="w3-container red">
                     <h2>Detalle <?php echo 'Orden de Compra N°: ' . $_POST['dll_ordenes']?>&nbsp;&nbsp;<i class="fa fa-shopping-cart"></i> </h2>
+                    <form action="reportes.php" method="POST">  
+                        <p align="right" > <button name="btn_reporte" value="<?php echo $sessionCliente['nombreReporte'] ?>" type="submit" class="btn btn-info"><i class="fa fa-file-text"></i></i></button>
+                            <input type="hidden" name="txt_rut" value="<?php echo $sessionCliente["rut"] ?>" />
+                            <input type="hidden" name="txt_orden" value="<?php echo $_POST['dll_ordenes'] ?>" />
+                    </form>  
                 </div>
                 <!--End of title bar-->
                 <div class="w3-half">

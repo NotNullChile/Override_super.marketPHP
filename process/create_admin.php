@@ -40,7 +40,7 @@ $resultado = $loginDal->insertLoginAdmin($admin);
             //Si retorna 23000 admin ya registrado
             case 23000:
                 //Pagina a redirigir admin ya registrado
-                //header("Location: ../access/error_signup_userexists.php");
+                header("Location: ../intranet/redirect_index_intranet_error");
                 break;
             //Error desconocido
             default: 
@@ -52,7 +52,7 @@ $resultado = $loginDal->insertLoginAdmin($admin);
     }
     else
     {
-        header("Location: ../intranet/redirect_index_intranet_error");
+        header("Location: ../intranet/redirect_index_intranet_error_admin_differentpasswords.php");
     }
 }
 else
