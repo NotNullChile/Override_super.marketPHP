@@ -89,4 +89,33 @@ class ClientesDal
             $ex->getTraceAsString();            
         }
     }
+    function updateCliente(Cliente $c)
+    {
+        require_once '../conexion.php';
+        require_once '../model.business/Cliente.php';
+        try 
+        {
+            $conexion = new conexion();
+            $conn = $conexion->conn();
+            $rut = $c->getRut();
+            $nombre = $c->getNombre();
+            $apellido = $c->getApellido();
+            $email = $c->getEmail();
+            $telefono = $c->getTelefono();
+            $username = $c->getUsername();
+            $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            $sql = $conn->prepare("UPDATE clientes SET nombre = :nombre, apellido = :apellido, email = :email, telefono = :telefono WHERE rut = :rut;");
+            $sql->bindParam(':rut', $rut);
+            $sql->bindParam(':nombre', $nombre);
+            $sql->bindParam(':apellido', $apellido);
+            $sql->bindParam(':email', $email);
+            $sql->bindParam(':telefono', $telefono);
+                       
+            return $sql->execute();
+        } 
+        catch (PDOException $exc) 
+        {
+            echo $exc->getMessage();
+        }
+    }
 }
