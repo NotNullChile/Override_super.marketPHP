@@ -3,10 +3,8 @@
 header('Content-Type: text/html; charset=UTF-8');
 session_start();
 require_once ('../conexion.php');
-require_once ('../model.business/Producto.php');
-require_once ('../model.dal/ProductoDal.php');
-require_once ('../model.dal/marcasDal.php');
-require_once ('../model.dal/TipoProductoDal.php');
+require_once ('../model.business/Cliente.php');
+require_once ('../model.dal/ClientesDal.php');
 if(isset($_SESSION['administrador']))
 {
     $sessionAdministrador = $_SESSION['administrador'];
@@ -198,30 +196,30 @@ if(isset($_SESSION['administrador']))
                 </tbody>
          </table>     
       </form>         
-                    <!--Product Modification/Elimination-->
+                    <!--Client Modification/Elimination-->
                     <form action="../process/modificar_cliente.php" method="POST">
                     <table>
                         <tbody>
                     <?php 
-                    $id = 0;
+                    $rut = 0;
                     if(isset($_POST['txt_id']))
                     {
-                        $id = $_POST['txt_id'];
+                        $rut = $_POST['txt_id'];
                     }    
-                    $productoDal = new ProductoDal();
-                    $p = new Producto();
-                    $p = $productoDal->buscarProductoXId($id);
-                    if(isset($p))
+                    $clienteDal = new clientesDal();
+                    $c = new Cliente();
+                    $c = $clienteDal->buscarClienteXRut($rut);
+                    if(isset($c))
                     {
                     ?>
                     <tr class="w3-row">
                         <td class="w3-col m5">
-                            Número
+                            Rut
                         </td>
                         <td class="w3-col m7">
                             <input type="text" 
-                                   name="txt_id_producto" 
-                                   value="<?php echo $p->getIdProducto()?>" 
+                                   name="txt_rut" 
+                                   value="<?php echo $c->getRut()?>" 
                                    class="form-control"
                                    size="5" 
                                    readonly="readonly" />
@@ -235,8 +233,8 @@ if(isset($_SESSION['administrador']))
                         <td class="w3-col m7">
                             <input class="form-control"
                                    type="text" 
-                                   name="txt_nombre_producto" 
-                                   value="<?php echo $p->getNombreProducto()?>" 
+                                   name="txt_nombre" 
+                                   value="<?php echo $c->getNombre()?>" 
                                    required="true" 
                                    autofocus="true"/> 
                         </td>
@@ -244,105 +242,47 @@ if(isset($_SESSION['administrador']))
                     
                     <tr class="w3-row">
                         <td class="w3-col m5">
-                            Tipo Producto
+                            Apellido
                         </td>
                         <td class="w3-col m7">
-                            <select name="ddl_lista_tipo_producto"
-                                    class="form-control">   
-                                <?php 
-                                $tp = new TipoProductoDal();
-                                $tp->listadoTipoProductos();
-                                ?>
-                            </select>
+                            <input class="form-control"
+                                   type="text" 
+                                   name="txt_apellido" 
+                                   value="<?php echo $c->getApellido()?>" 
+                                   required="true" 
+                                   autofocus="false"/>
                         </td>
                     </tr>
                     
                     <tr class="w3-row">
                         <td class="w3-col m5">
-                            Marca
+                            email
                         </td>
                         <td class="w3-col m7">
-                            <select name="ddl_marca_producto"
-                                    class="form-control">   
-                                <?php 
-                                $mr = new marcasDal();
-                                $mr->listadoMarcas();
-                                ?>
-                            </select>
+                            <input class="form-control"
+                                   type="email" 
+                                   name="txt_email" 
+                                   value="<?php echo $c->getEmail()?>" 
+                                   required="true" 
+                                   autofocus="false"/>
                         </td>
                     </tr>
                     
                     <tr class="w3-row">
                         <td class="w3-col m5">
-                            Precio
+                            Teléfono
                         </td>
                         <td class="w3-col m7">
                             <input type="number" 
                                    class="form-control"
-                                   name="txt_precio" 
-                                   value="<?php echo $p->getPrecioUnitario()?>" 
+                                   name="txt_telefono" 
+                                   value="<?php echo $c->getTelefono()?>" 
                                    size="5"
                                    min="0"
                                    required="true" />
                         </td>
                     </tr>
-                    
-                    <tr class="w3-row">
-                        <td class="w3-col m5">
-                            Stock
-                        </td>
-                        <td class="w3-col m7">
-                            <input type="number" 
-                                   name="txt_stock"
-                                   class="form-control"
-                                   value="<?php echo $p->getStock()?>" 
-                                   size="5" 
-                                   min="0"
-                                   required="true" />
-                        </td>
-                    </tr>
-                            
-                    
-                    <tr class="w3-row">
-                        <td class="w3-col m5">
-                            Estado
-                        </td>
-                        <td class="w3-col m7">
-                            <?php
-                            /* 0 = sin oferta, 1 = Oferta*/
-                            if($p->getEstado() == 0)
-                            {
-                            ?>   
-                            <input type="radio" name="rbtn_estado" value="1" checked="checked" />Oferta<br>
-                            <input type="radio" name="rbtn_estado" value="0" checked="disable" />Sin Oferta
-                            <?php 
-                            }
-                            else
-                            {
-                            ?>
-                            <input type="radio" name="rbtn_estado" value="0" checked="disable" />Sin Oferta<br>
-                            <input type="radio" name="rbtn_estado" value="1" checked="checked" />Oferta
-                            <?php
-                            }
-                            ?>
-                           
-                        </td>
-                    </tr>
-                    
-                    <tr class="w3-row">
-                        <td class="w3-col m5">
-                            Descripción
-                        </td>
-                        <td class="w3-col m7">
-                            <textarea name="txt_descripcion" 
-                                      class="form-control"
-                                      rows="4" 
-                                      cols="20" required="true" >
-                                <?php echo $p->getDescripcion()?>
-                            </textarea>
-                        </td>
-                    </tr>
-                    
+             
                     <tr class="w3-row">
                         <td class="w3-col m6">
                             <input type="submit" 
@@ -361,12 +301,10 @@ if(isset($_SESSION['administrador']))
             else
             {
                 echo "<center> <h1> No existe Cliente buscado  </h1></center>";
-            }
-            
+            }           
             ?>
-            </table>
-            
-        </form>       
+            </table>        
+        </form>      
        </div> 
   
             </div>

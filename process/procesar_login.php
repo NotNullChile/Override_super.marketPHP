@@ -49,7 +49,8 @@ if ($clientesDal->searchClient($cliente)!= NULL || $esIgual == TRUE)
         {
         //Pagina 
             $nombre = $admin->getNombre() . ' </br> ' . $admin->getApellido();
-            $arrayAdmin = array('nombre' => $nombre);
+            $nombreReporteAdmin = $admin->getNombre() . ' ' . $admin->getApellido();
+            $arrayAdmin = array('nombre' => $nombre, 'nombreReporte' => $nombreReporteAdmin, 'rut' => $admin->getRut());
             $_SESSION['administrador'] = $arrayAdmin;
             header("Location: ../access/redirect_index_intranet_sesion_iniciada.php");
         }

@@ -3,9 +3,7 @@
 header('Content-Type: text/html; charset=UTF-8');
 session_start();
 require_once ('../conexion.php');
-require_once ('../model.dal/ProductoDal.php');
-require_once ('../model.dal/marcasDal.php');
-require_once ('../model.dal/TipoProductoDal.php');
+require_once ('../model.dal/MetodoDePagosDal.php');
 if(isset($_SESSION['administrador']))
 {
     $sessionAdministrador = $_SESSION['administrador'];
@@ -16,7 +14,7 @@ if(isset($_SESSION['administrador']))
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Administración de clientes</title>
+        <title>Agregar Método de Pago</title>
         <link rel="stylesheet" href="../w3.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../style.css">
@@ -31,7 +29,7 @@ if(isset($_SESSION['administrador']))
         <script>
         function ayuda() 
         {
-            alert("Debe ingresar el RUT del cliente y presionar el botón Buscar Cliente");          
+            alert("Este módulo sirve para crear un nuevo Método de pago, en el cual debe ingresar el nombre del Método de pago y luego presionar el botón agregar");          
         }
         </script>
         <!--header-->
@@ -56,7 +54,7 @@ if(isset($_SESSION['administrador']))
                 <br>
                 <div class="input-group">
                     <br>
-                     <h2>
+                    <h2>
                     <?php
                     if(isset($sessionAdministrador))
                     {
@@ -165,54 +163,68 @@ if(isset($_SESSION['administrador']))
             <div class="w3-col m7 w3-card w3-padding">
                 <!--Title bar-->
                 <div class="w3-container red">
-                    <h2>Buscar Cliente&nbsp;&nbsp; <img src="../icons/search_w.png" width="50" height="50" alt="new_product_w"/>
+                    <h2>
+                        Agregar Nuevo Método de Pago&nbsp;&nbsp; <img src="../icons/new_brand_w.png" width="50" height="50" alt="new_product_w"/>
                     </h2>
                     <p align="right" > <button class="btn btn-info" onclick="ayuda()"><i class="fa fa-question"></i></button>
-                    <form action="reportes.php" method="POST">  
-                        <p align="right" > <button name="btn_reporte_clientes" formtarget="_blank" value="<?php echo $sessionAdministrador['nombreReporte'] ?>" type="submit" class="btn btn-info"><i class="fa fa-file-text"> Listado Clientes</i></i></button>
-                            <input type="hidden" name="txt_rut" value="<?php echo $sessionAdministrador['rut'] ?>" />
-                    </form>
                 </div>
                 <br>
                 <!--End of title bar-->
                 <div>
-                <form action="intranet_modificar_eliminar_cliente.php" method="POST" >
-                    <table border="1" class="w3-table w3-card yellow-l4">
+                    <form action="../process/agregar_metodo_pago.php" method="POST" >
+                    <table border="1" class="w3-table w3-card indigo-l5">
                 <tbody>
-                    <tr class="w3-row">
-                        <td class="w3-col m5">
-                            Escriba los valores a buscar
+                    <tr>
+                        <td>
+                            Id Método de Pago
                         </td>
-                        <td class="w3-col m7">
+                        <td>
                             <input class="form-control"
                                    type="text" 
                                    name="txt_id"
-                                   value=""
-                                   placeholder="Rut Cliente"
+                                   value="<?php $m = new metodoDePagosDal(); echo $m->maxMetodoDePago();?>" 
                                    size="5" 
-                                   />
+                                   readonly="true" />
                         </td>
                     </tr>
-                    <tr class="w3-row">
-                        <td class="w3-col m5">
+                    <tr>
+                        <td>
+                            Nombre
                         </td>
-                        <td class="w3-col m7">
+                        <td>
+                            <input class="form-control"
+                                   type="text" 
+                                   name="txt_nombre" 
+                                   value="" 
+                                   required="true"
+                                   autofocus/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                           
+                        </td>
+                        <td>
                             <input class="btn btn-success" 
                                    type="submit" 
-                                   value="Buscar Cliente" 
-                                   name="btn_buscar" />
+                                   value="Agregar" 
+                                   name="btn_agregar" />
                         </td>
                     </tr>
                 </tbody>
             </table>
-        </form>       
-       </div> 
-  
+
+        </form>
+                    
+                </div>
+                
             </div>
             <!--End of content-->
+            
             <!--Blank column-->
             <div class="w3-col m1">&nbsp;</div>
-            <!--End of blank column-->        
+            <!--End of blank column-->
+            
         </div>
         <!--End of Main Row-->
         <br>

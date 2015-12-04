@@ -114,16 +114,21 @@ if(isset($_SESSION['administrador']))
         
         <!--horizontal menu-->
         <nav class="w3-topnav w3-padding red-d1">
-            <a href="index_administrador.php"> <img src="../icons/Override_w.png" width="30" height="30" alt="Override_w"/>
+            <a href="index_intranet.php"> <img src="../icons/Override_w.png" width="30" height="30" alt="Override_w"/>
                 Home Intranet</a>
             <a href="intranet_agregar_producto.php"> <img src="../icons/new_product_w.png" width="20" height="20" alt="abarrotes_w"/>
                 Agregar Producto Nuevo</a>
             <a href="intranet_buscar_producto.php"> <img src="../icons/search_w.png" width="20" height="20" alt="alimentos_congelados_w"/>
                 Buscar Productos</a>
+            <a href="intranet_buscar_cliente.php"> <img src="../icons/search_w.png" width="20" height="20" alt="alimentos_congelados_w"/>
+                Buscar Cliente</a>
             <a href="intranet_agregar_marca.php"> <img src="../icons/new_brand_w.png" width="20" height="20" alt="bebidas_y_licores_w"/>
                 Agregar Nueva Marca</a>
+			<a href="intranet_agregar_metodo_de_pago.php"> <img src="../icons/new_brand_w.png" width="20" height="20" alt="bebidas_y_licores_w"/>
+                Agregar Nuevo Método de Pago</a>
             <a href="intranet_agregar_administrador.php"> <img src="../icons/new_admin_w.png" width="20" height="20" alt="carnes"/>
                 Agregar Nuevo Administrador</a>
+            
         </nav>
         <!--horizontal menu end-->
         
@@ -136,14 +141,18 @@ if(isset($_SESSION['administrador']))
             
             <!--Sidebar-->
             <div class="list-group w3-col m2">
-            <a class="list-group-item" href=index_administrador.php> <img src="../icons/Override.png" width="30" height="30" alt="Intranet Override"/>
+            <a class="list-group-item active" href=index_intranet.php> <img src="../icons/Override_w.png" width="30" height="30" alt="Intranet Override"/>
                 &nbsp;Home Intranet</a>
                 <a class="list-group-item" href="intranet_agregar_producto.php"><img src="../icons/new_product.png" width="30" height="30" alt=""/>
                         &nbsp;Agregar nuevo producto</a>
                 <a class="list-group-item" href="intranet_buscar_producto.php"><img src="../icons/search.png" width="30" height="30" alt=""/>
                         &nbsp;Buscar Producto</a>
-                <a class="list-group-item active" href="intranet_agregar_marca.php"><img src="../icons/new_brand_w.png" width="30" height="30" alt=""/>
+                <a class="list-group-item" href="intranet_buscar_cliente.php"><img src="../icons/search.png" width="30" height="30" alt=""/>
+                        &nbsp;Buscar Cliente</a>
+                <a class="list-group-item" href="intranet_agregar_marca.php"><img src="../icons/new_brand.png" width="30" height="30" alt=""/>
                         &nbsp;Agregar nueva marca</a>
+				<a class="list-group-item" href="intranet_agregar_metodo_de_pago.php"><img src="../icons/new_brand.png" width="30" height="30" alt=""/>
+                        &nbsp;Agregar nuevo Método de Pago</a>
                 <a class="list-group-item" href="intranet_agregar_administrador.php"><img src="../icons/new_admin.png" width="30" height="30" alt=""/>
                         &nbsp;Agregar nuevo administrador</a>
                 <!--/nav-->

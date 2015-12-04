@@ -126,6 +126,8 @@ if(isset($_SESSION['administrador']))
                 Buscar Cliente</a>
             <a href="intranet_agregar_marca.php"> <img src="../icons/new_brand_w.png" width="20" height="20" alt="bebidas_y_licores_w"/>
                 Agregar Nueva Marca</a>
+			<a href="intranet_agregar_metodo_de_pago.php"> <img src="../icons/new_brand_w.png" width="20" height="20" alt="bebidas_y_licores_w"/>
+                Agregar Nuevo Método de Pago</a>
             <a href="intranet_agregar_administrador.php"> <img src="../icons/new_admin_w.png" width="20" height="20" alt="carnes"/>
                 Agregar Nuevo Administrador</a>
             
@@ -151,6 +153,8 @@ if(isset($_SESSION['administrador']))
                         &nbsp;Buscar Cliente</a>
                 <a class="list-group-item" href="intranet_agregar_marca.php"><img src="../icons/new_brand.png" width="30" height="30" alt=""/>
                         &nbsp;Agregar nueva marca</a>
+				<a class="list-group-item" href="intranet_agregar_metodo_de_pago.php"><img src="../icons/new_brand.png" width="30" height="30" alt=""/>
+                        &nbsp;Agregar nuevo Método de Pago</a>
                 <a class="list-group-item" href="intranet_agregar_administrador.php"><img src="../icons/new_admin.png" width="30" height="30" alt=""/>
                         &nbsp;Agregar nuevo administrador</a>
                 <!--/nav-->
@@ -198,6 +202,7 @@ if(isset($_SESSION['administrador']))
                         </a>
                     </div>
                 </div> 
+                
                 <!--End of first row of items-->
                 <!--Second Row of items-->
                 <div class="w3-row-margin">            
@@ -263,6 +268,22 @@ if(isset($_SESSION['administrador']))
                             </div>
                         </a>
                     </div>
+                    <div class="w3-half">
+                        <a href="intranet_agregar_metodo_de_pago.php">
+                            <div class="w3-card-4 w3-row indigo-l5">
+                                <div class="w3-col m5">
+                                    <img src="../icons/new_brand.png" width="150" height="150" alt="new_brand"/>
+                                    <br>&nbsp;
+                                </div>
+                                <div class="w3-col m6">
+                                    <h4 align="right"><strong>Agregar nuevo Metodo De Pagos</strong></h4>
+                                    <br>
+                                    <h5 align="right"> Agregue un nuevo Metodos De Pago a la base datos.</h5>    
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div> 
                 <!--End of first row of items-->
             </div>
             <!--End of content-->
