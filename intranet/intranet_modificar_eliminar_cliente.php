@@ -3,9 +3,8 @@
 header('Content-Type: text/html; charset=UTF-8');
 session_start();
 require_once ('../conexion.php');
-require_once ('../model.dal/ProductoDal.php');
-require_once ('../model.dal/marcasDal.php');
-require_once ('../model.dal/TipoProductoDal.php');
+require_once ('../model.business/Cliente.php');
+require_once ('../model.dal/ClientesDal.php');
 if(isset($_SESSION['administrador']))
 {
     $sessionAdministrador = $_SESSION['administrador'];
@@ -16,7 +15,7 @@ if(isset($_SESSION['administrador']))
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Administración de productos</title>
+        <title>Editar Cliente</title>
         <link rel="stylesheet" href="../w3.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../style.css">
@@ -31,7 +30,7 @@ if(isset($_SESSION['administrador']))
         <script>
         function ayuda() 
         {
-            alert("Debe ingresar la ID del producto y presionar el botón Buscar Producto");          
+            alert("Aquí puede visualizar el Cliente, pudiendo  modificarlo\nPara modificar al Cliente debe editar los campos que aparecen y presionar el botón Guadar Cambios.");          
         }
         </script>
         <!--header-->
@@ -56,7 +55,7 @@ if(isset($_SESSION['administrador']))
                 <br>
                 <div class="input-group">
                     <br>
-                     <h2>
+                    <h2>
                     <?php
                     if(isset($sessionAdministrador))
                     {
@@ -103,7 +102,7 @@ if(isset($_SESSION['administrador']))
                                     echo("<i class='fa fa-user'></i>&nbsp;Iniciar Sesión / Nuevo Usuario");
                                     echo("</a>");
                                 }
-                            ?>        
+                            ?>       
                     </span>
                 </div><!-- /input-group -->  
             </div>
@@ -116,7 +115,7 @@ if(isset($_SESSION['administrador']))
         
         <!--horizontal menu-->
         <nav class="w3-topnav w3-padding red-d1">
-            <a href="index_intranet.php"> <img src="../icons/Override_w.png" width="30" height="30" alt="Override_w"/>
+            <a href="index_administrador.php"> <img src="../icons/Override_w.png" width="30" height="30" alt="Override_w"/>
                 Home Intranet</a>
             <a href="intranet_agregar_producto.php"> <img src="../icons/new_product_w.png" width="20" height="20" alt="abarrotes_w"/>
                 Agregar Producto Nuevo</a>
@@ -126,11 +125,8 @@ if(isset($_SESSION['administrador']))
                 Buscar Cliente</a>
             <a href="intranet_agregar_marca.php"> <img src="../icons/new_brand_w.png" width="20" height="20" alt="bebidas_y_licores_w"/>
                 Agregar Nueva Marca</a>
-			<a href="intranet_agregar_metodo_de_pago.php"> <img src="../icons/new_brand_w.png" width="20" height="20" alt="bebidas_y_licores_w"/>
-                Agregar Nuevo Método de Pago</a>
             <a href="intranet_agregar_administrador.php"> <img src="../icons/new_admin_w.png" width="20" height="20" alt="carnes"/>
                 Agregar Nuevo Administrador</a>
-            
         </nav>
         <!--horizontal menu end-->
         
@@ -143,18 +139,16 @@ if(isset($_SESSION['administrador']))
             
             <!--Sidebar-->
             <div class="list-group w3-col m2">
-            <a class="list-group-item active" href=index_intranet.php> <img src="../icons/Override_w.png" width="30" height="30" alt="Intranet Override"/>
+            <a class="list-group-item" href=index_administrador.php> <img src="../icons/Override.png" width="30" height="30" alt="Intranet Override"/>
                 &nbsp;Home Intranet</a>
                 <a class="list-group-item" href="intranet_agregar_producto.php"><img src="../icons/new_product.png" width="30" height="30" alt=""/>
                         &nbsp;Agregar nuevo producto</a>
                 <a class="list-group-item" href="intranet_buscar_producto.php"><img src="../icons/search.png" width="30" height="30" alt=""/>
                         &nbsp;Buscar Producto</a>
-                <a class="list-group-item" href="intranet_buscar_cliente.php"><img src="../icons/search.png" width="30" height="30" alt=""/>
+                <a class="list-group-item active" href="intranet_buscar_cliente.php"><img src="../icons/search_w.png" width="30" height="30" alt=""/>
                         &nbsp;Buscar Cliente</a>
                 <a class="list-group-item" href="intranet_agregar_marca.php"><img src="../icons/new_brand.png" width="30" height="30" alt=""/>
                         &nbsp;Agregar nueva marca</a>
-				<a class="list-group-item" href="intranet_agregar_metodo_de_pago.php"><img src="../icons/new_brand.png" width="30" height="30" alt=""/>
-                        &nbsp;Agregar nuevo Método de Pago</a>
                 <a class="list-group-item" href="intranet_agregar_administrador.php"><img src="../icons/new_admin.png" width="30" height="30" alt=""/>
                         &nbsp;Agregar nuevo administrador</a>
                 <!--/nav-->
@@ -165,14 +159,14 @@ if(isset($_SESSION['administrador']))
             <div class="w3-col m7 w3-card w3-padding">
                 <!--Title bar-->
                 <div class="w3-container red">
-                    <h2>Buscar Producto&nbsp;&nbsp; <img src="../icons/search_w.png" width="50" height="50" alt="new_product_w"/>
+                    <h2>Buscar Cliente&nbsp;&nbsp; <img src="../icons/search_w.png" width="50" height="50" alt="new_product_w"/>
                     </h2>
                     <p align="right" > <button class="btn btn-info" onclick="ayuda()"><i class="fa fa-question"></i></button>
                 </div>
                 <br>
                 <!--End of title bar-->
                 <div>
-                <form action="intranet_modificar_eliminar_producto.php" method="POST" >
+                <form action="intranet_modificar_eliminar_cliente.php" method="POST" >
                     <table border="1" class="w3-table w3-card yellow-l4">
                 <tbody>
                     <tr class="w3-row">
@@ -184,7 +178,7 @@ if(isset($_SESSION['administrador']))
                                    type="text" 
                                    name="txt_id"
                                    value=""
-                                   placeholder="Id Producto"
+                                   placeholder="Rut Cliente"
                                    size="5" 
                                    />
                         </td>
@@ -195,13 +189,122 @@ if(isset($_SESSION['administrador']))
                         <td class="w3-col m7">
                             <input class="btn btn-success" 
                                    type="submit" 
-                                   value="Buscar Producto" 
+                                   value="Buscar Clientes" 
                                    name="btn_buscar" />
                         </td>
                     </tr>
                 </tbody>
-            </table>
-        </form>       
+         </table>     
+      </form>         
+                    <!--Client Modification/Elimination-->
+                    <form action="../process/modificar_cliente.php" method="POST">
+                    <table>
+                        <tbody>
+                    <?php 
+                    $rut = 0;
+                    if(isset($_POST['txt_id']))
+                    {
+                        $rut = $_POST['txt_id'];
+                    }    
+                    $clienteDal = new clientesDal();
+                    $c = new Cliente();
+                    $c = $clienteDal->buscarClienteXRut($rut);
+                    if(isset($c))
+                    {
+                    ?>
+                    <tr class="w3-row">
+                        <td class="w3-col m5">
+                            Rut
+                        </td>
+                        <td class="w3-col m7">
+                            <input type="text" 
+                                   name="txt_rut" 
+                                   value="<?php echo $c->getRut()?>" 
+                                   class="form-control"
+                                   size="5" 
+                                   readonly="readonly" />
+                        </td>
+                    </tr>
+                    
+                    <tr class="w3-row">
+                        <td class="w3-col m5">
+                            Nombre
+                        </td>
+                        <td class="w3-col m7">
+                            <input class="form-control"
+                                   type="text" 
+                                   name="txt_nombre" 
+                                   value="<?php echo $c->getNombre()?>" 
+                                   required="true" 
+                                   autofocus="true"/> 
+                        </td>
+                    </tr>
+                    
+                    <tr class="w3-row">
+                        <td class="w3-col m5">
+                            Apellido
+                        </td>
+                        <td class="w3-col m7">
+                            <input class="form-control"
+                                   type="text" 
+                                   name="txt_apellido" 
+                                   value="<?php echo $c->getApellido()?>" 
+                                   required="true" 
+                                   autofocus="false"/>
+                        </td>
+                    </tr>
+                    
+                    <tr class="w3-row">
+                        <td class="w3-col m5">
+                            email
+                        </td>
+                        <td class="w3-col m7">
+                            <input class="form-control"
+                                   type="email" 
+                                   name="txt_email" 
+                                   value="<?php echo $c->getEmail()?>" 
+                                   required="true" 
+                                   autofocus="false"/>
+                        </td>
+                    </tr>
+                    
+                    <tr class="w3-row">
+                        <td class="w3-col m5">
+                            Teléfono
+                        </td>
+                        <td class="w3-col m7">
+                            <input type="number" 
+                                   class="form-control"
+                                   name="txt_telefono" 
+                                   value="<?php echo $c->getTelefono()?>" 
+                                   size="5"
+                                   min="0"
+                                   required="true" />
+                        </td>
+                    </tr>
+             
+                    <tr class="w3-row">
+                        <td class="w3-col m6">
+                            <input type="submit" 
+                                   value="Guardar Cambios" 
+                                   name="btn_guardar" 
+                                   class="btn btn-primary btn-block"/>
+                        </td>
+                        
+                    </tr>
+                    
+                    <!--End of Product Modification/Elimination-->
+                    
+                </tbody>
+                <?php
+            }
+            else
+            {
+                echo "<center> <h1> No existe Cliente buscado  </h1></center>";
+            }           
+            ?>
+            </table>        
+        </form>      
        </div> 
   
             </div>

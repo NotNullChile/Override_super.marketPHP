@@ -89,4 +89,63 @@ class ClientesDal
             $ex->getTraceAsString();            
         }
     }
+    function updateCliente(Cliente $c)
+    {
+        require_once '../conexion.php';
+        require_once '../model.business/Cliente.php';
+        try 
+        {
+            $conexion = new conexion();
+            $conn = $conexion->conn();
+            $rut = $c->getRut();
+            $nombre = $c->getNombre();
+            $apellido = $c->getApellido();
+            $email = $c->getEmail();
+            $telefono = $c->getTelefono();
+            $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            $sql = $conn->prepare("UPDATE clientes SET nombre = :nombre, apellido = :apellido, email = :email, telefono = :telefono WHERE rut = :rut;");
+            $sql->bindParam(':rut', $rut);
+            $sql->bindParam(':nombre', $nombre);
+            $sql->bindParam(':apellido', $apellido);
+            $sql->bindParam(':email', $email);
+            $sql->bindParam(':telefono', $telefono);
+                       
+            return $sql->execute();
+        } 
+        catch (PDOException $exc) 
+        {
+            echo $exc->getMessage();
+        }
+    }
+    function buscarClienteXRut($rut)
+    {
+        require_once ('../conexion.php');
+        require_once ('../model.business/Cliente.php');   
+        require_once ('../model.business/Persona.php');    
+        try 
+        {
+            $conexion = new conexion();
+            $cliente = new Cliente();
+            $sql =   "SELECT c.nombre, c.apellido,c.rut,c.telefono, c.email FROM clientes c "
+                   . "INNER JOIN login l ON c.username = l.username "
+                   . "WHERE c.rut = " . $rut . ";";
+            $conn = $conexion->conn();
+            $query = $conn->query($sql);
+            $rows = $query->fetchAll();
+            foreach($rows as $row)
+            {
+                $cliente->setNombre($row["nombre"]);
+                $cliente->setApellido($row["apellido"]);
+                $cliente->setRut($row["rut"]);
+                $cliente->setTelefono($row["telefono"]);
+                $cliente->setEmail($row["email"]);
+                return $cliente;
+            }
+            return null;
+        }
+        catch (Exception $ex) 
+        {
+            $ex->getTraceAsString();            
+        }
+    }
 }

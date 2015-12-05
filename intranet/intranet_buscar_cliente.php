@@ -16,7 +16,7 @@ if(isset($_SESSION['administrador']))
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Administración de productos</title>
+        <title>Administración de clientes</title>
         <link rel="stylesheet" href="../w3.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../style.css">
@@ -31,7 +31,7 @@ if(isset($_SESSION['administrador']))
         <script>
         function ayuda() 
         {
-            alert("Debe ingresar la ID del producto y presionar el botón Buscar Producto");          
+            alert("Debe ingresar el RUT del cliente y presionar el botón Buscar Cliente");          
         }
         </script>
         <!--header-->
@@ -165,14 +165,18 @@ if(isset($_SESSION['administrador']))
             <div class="w3-col m7 w3-card w3-padding">
                 <!--Title bar-->
                 <div class="w3-container red">
-                    <h2>Buscar Producto&nbsp;&nbsp; <img src="../icons/search_w.png" width="50" height="50" alt="new_product_w"/>
+                    <h2>Buscar Cliente&nbsp;&nbsp; <img src="../icons/search_w.png" width="50" height="50" alt="new_product_w"/>
                     </h2>
                     <p align="right" > <button class="btn btn-info" onclick="ayuda()"><i class="fa fa-question"></i></button>
+                    <form action="reportes.php" method="POST">  
+                        <p align="right" > <button name="btn_reporte_clientes" formtarget="_blank" value="<?php echo $sessionAdministrador['nombreReporte'] ?>" type="submit" class="btn btn-info"><i class="fa fa-file-text"> Listado Clientes</i></i></button>
+                            <input type="hidden" name="txt_rut" value="<?php echo $sessionAdministrador['rut'] ?>" />
+                    </form>
                 </div>
                 <br>
                 <!--End of title bar-->
                 <div>
-                <form action="intranet_modificar_eliminar_producto.php" method="POST" >
+                <form action="intranet_modificar_eliminar_cliente.php" method="POST" >
                     <table border="1" class="w3-table w3-card yellow-l4">
                 <tbody>
                     <tr class="w3-row">
@@ -184,7 +188,7 @@ if(isset($_SESSION['administrador']))
                                    type="text" 
                                    name="txt_id"
                                    value=""
-                                   placeholder="Id Producto"
+                                   placeholder="Rut Cliente"
                                    size="5" 
                                    />
                         </td>
@@ -195,7 +199,7 @@ if(isset($_SESSION['administrador']))
                         <td class="w3-col m7">
                             <input class="btn btn-success" 
                                    type="submit" 
-                                   value="Buscar Producto" 
+                                   value="Buscar Cliente" 
                                    name="btn_buscar" />
                         </td>
                     </tr>
