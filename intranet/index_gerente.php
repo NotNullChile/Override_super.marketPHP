@@ -68,7 +68,7 @@ if(isset($_SESSION['gerente']))
                     }
                     ?>
                     </h2>
-                    <h4>Intranet @Override super.market(<i class="fa fa-shopping-cart"></i>)</h4>
+                    <h4>Gerencia @Override super.market(<i class="fa fa-shopping-cart"></i>)</h4>
                         
                     
                 </div><!-- /input-group -->
@@ -113,21 +113,18 @@ if(isset($_SESSION['gerente']))
             <!--End of blank column(1)-->
         </header>
         <!--header end-->
-        
         <!--horizontal menu-->
         <nav class="w3-topnav w3-padding red-d1">
-            <a href="index_intranet.php"> <img src="../icons/Override_w.png" width="30" height="30" alt="Override_w"/>
+            <a href="index_gerente.php"> <img src="../icons/Override_w.png" width="30" height="30" alt="Override_w"/>
                 Home Intranet</a>
-            <a href="intranet_agregar_producto.php"> <img src="../icons/new_product_w.png" width="20" height="20" alt="abarrotes_w"/>
-                Agregar Producto Nuevo</a>
-            <a href="intranet_buscar_producto.php"> <img src="../icons/search_w.png" width="20" height="20" alt="alimentos_congelados_w"/>
-                Buscar Productos</a>
-            <a href="intranet_agregar_marca.php"> <img src="../icons/new_brand_w.png" width="20" height="20" alt="bebidas_y_licores_w"/>
-                Agregar Nueva Marca</a>
-            <a href="intranet_agregar_administrador.php"> <img src="../icons/new_admin_w.png" width="20" height="20" alt="carnes"/>
-                Agregar Nuevo Administrador</a>
+            <a href="reporte_ventas_cliente.php"> <img src="../icons/search_w.png" width="20" height="20" alt="alimentos_congelados_w"/>
+                Reporte Ventas por Cliente</a>  
+            <a href="reporte_productos_mas_elegido.php"> <img src="../icons/new_product_w.png" width="20" height="20" alt="abarrotes_w"/>
+                Reporte Productos Mas Elegido</a>
+                  
         </nav>
         <!--horizontal menu end-->
+        
         
         <!--Main row-->
         <div class="w3-row">
@@ -138,16 +135,12 @@ if(isset($_SESSION['gerente']))
             
             <!--Sidebar-->
             <div class="list-group w3-col m2">
-            <a class="list-group-item active" href=index_intranet.php> <img src="../icons/Override_w.png" width="30" height="30" alt="Intranet Override"/>
+                <a class="list-group-item active" href=index_gerente.php> <img src="../icons/Override_w.png" width="30" height="30" alt="Intranet Override"/>
                 &nbsp;Home Intranet</a>
-                <a class="list-group-item" href="intranet_agregar_producto.php"><img src="../icons/new_product.png" width="30" height="30" alt=""/>
-                        &nbsp;Agregar nuevo producto</a>
-                <a class="list-group-item" href="intranet_buscar_producto.php"><img src="../icons/search.png" width="30" height="30" alt=""/>
-                        &nbsp;Buscar Producto</a>
-                <a class="list-group-item" href="intranet_agregar_marca.php"><img src="../icons/new_brand.png" width="30" height="30" alt=""/>
-                        &nbsp;Agregar nueva marca</a>
-                <a class="list-group-item" href="intranet_agregar_administrador.php"><img src="../icons/new_admin.png" width="30" height="30" alt=""/>
-                        &nbsp;Agregar nuevo administrador</a>
+                <a class="list-group-item" href="reporte_ventas_cliente.php"><img src="../icons/new_product.png" width="30" height="30" alt=""/>
+                        &nbsp;Reporte Ventas por Cliente</a>
+                <a class="list-group-item" href="reporte_productos_mas_elegido.php"><img src="../icons/search.png" width="30" height="30" alt=""/>
+                        &nbsp;Reporte Productos Mas Elgido</a>
                 <!--/nav-->
             </div>
             <!--End of sidebar-->
@@ -156,85 +149,51 @@ if(isset($_SESSION['gerente']))
             <div class="w3-col m7 w3-card w3-padding">
                 <!--Title bar-->
                 <div class="w3-container red">
-                    <h2>Home Intranet&nbsp;&nbsp;<i class="fa fa-spin fa-cog"></i> </h2>
+                    <h2>Home Gerencia&nbsp;&nbsp;<i class="fa fa-spin fa-cog"></i> </h2>
                     <p align="right" > <button class="btn btn-info" onclick="ayuda()"><i class="fa fa-question"></i></button>
                 </div>
                 <!--End of title bar-->
                 <!--First Row of items-->
-                <div class="w3-row-margin">            
+                <form action="g" method="POST">
+                <div class="w3-row-margin">  
+                    
+                    
                     <div class="w3-half">
-                        <a href="intranet_agregar_producto.php">
+                        <a href="reporte_ventas_cliente.php">
                             <div class="w3-card-4 w3-row red-l4">
                                 <div class="w3-col m5">
                                     <img src="../icons/new_product.png" width="150" height="150" alt="new_product"/>
                                     <br>&nbsp;
                                 </div>
                                 <div class="w3-col m6">
-                                    <h4 align="right"><strong>Agregar nuevo producto</strong></h4>
+                                    <h4 align="right"><strong>Ventas</strong></h4>
                                     <br>
-                                    <h5 align="right"> Agregue un nuevo producto para una marca existente en la base datos.</h5>    
+                                    <h5 align="right">    Informe de Ventas según Clientes.</h5>    
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="w3-half">
-                        <a href="intranet_agregar_marca.php">
+                        <a href="reporte_productos_mas_elegido.php">
                             <div class="w3-card-4 w3-row indigo-l5">
                                 <div class="w3-col m5">
                                     <img src="../icons/new_brand.png" width="150" height="150" alt="new_brand"/>
                                     <br>&nbsp;
                                 </div>
                                 <div class="w3-col m6">
-                                    <h4 align="right"><strong>Agregar nueva marca</strong></h4>
+                                    <h4 align="right"><strong>Productos</strong></h4>
                                     <br>
-                                    <h5 align="right"> Agregue una nueva marca a la base datos.</h5>    
+                                    <h5 align="right">    Informe sobre los Productos Más Elegido .</h5>    
                                 </div>
                             </div>
                         </a>
                     </div>
+                       
                 </div> 
+               </form>
                 <!--End of first row of items-->
                 <!--Second Row of items-->
-                <div class="w3-row-margin">            
-                    <div class="w3-half">
-                        <a href="intranet_buscar_producto.php">
-                            <div class="w3-card-4 w3-row yellow-l4">
-                                <div class="w3-col m5">
-                                    <img src="../icons/search.png" width="150" height="150" alt="search_product"/>
-                                    <br>&nbsp;
-                                </div>
-                                <div class="w3-col m6">
-                                    <h4 align="right"><strong>Buscar un producto</strong></h4>
-                                    <h5>Permite:
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </h5>
-                                    <h5>
-                                        <ul>
-                                            <li>Modificar un producto</li>
-                                            <li>Modificar su stock&nbsp;&nbsp;&nbsp;</li>
-                                            <li>eliminar un producto&nbsp;</li>
-                                        </ul>
-                                    </h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="w3-half">
-                        <a href="intranet_agregar_administrador.php">
-                            <div class="w3-card-4 w3-row green-l4">
-                                <div class="w3-col m5">
-                                    <img src="../icons/new_admin.png" width="150" height="150" alt="new_admin"/>
-                                    <br>&nbsp;
-                                </div>
-                                <div class="w3-col m6">
-                                    <h4 align="right"><strong>Agregar nuevo administrador</strong></h4>
-                                    <br>
-                                    <h5 align="right"> Agregue un nuevo administrador al sistema.</h5>    
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div> 
+                 
                 <!--End of first row of items-->
             </div>
             <!--End of content-->

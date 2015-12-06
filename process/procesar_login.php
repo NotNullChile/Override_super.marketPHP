@@ -57,7 +57,7 @@ if ($clientesDal->searchClient($cliente)!= NULL || $esIgual == TRUE)
         else if ($admin->getNombre() != null) 
         {
         //Pagina 
-            $nombre = $admin->getNombre() . ' </br> ' . $admin->getApellido();
+            $nombre = $admin->getNombre() . ' ' . $admin->getApellido();
             $nombreReporteAdmin = $admin->getNombre() . ' ' . $admin->getApellido();
             $arrayAdmin = array('nombre' => $nombre, 'nombreReporte' => $nombreReporteAdmin, 'rut' => $admin->getRut());
             $_SESSION['administrador'] = $arrayAdmin;
@@ -65,7 +65,7 @@ if ($clientesDal->searchClient($cliente)!= NULL || $esIgual == TRUE)
         }
         else if($gerente->getNombre() != null)
         {
-            $nombre = $gerente->getNombre() . ' </br> ' . $gerente->getApellido();
+            $nombre = $gerente->getNombre() . ' ' . $gerente->getApellido();
             $arrayGerente = array('nombre' => $nombre);
             $_SESSION['gerente'] = $arrayGerente;
             header("Location: ../intranet/index_gerente.php");
